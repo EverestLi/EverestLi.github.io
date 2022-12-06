@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="《基于知识提纯注意力网络的个性化推荐系统研究》的总结和理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推荐系统综述及KRAN原理">
+<meta property="og:url" content="http://example.com/2022/03/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%BB%BC%E8%BF%B0%E5%8F%8AKRAN%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="Matrix">
+<meta property="og:description" content="《基于知识提纯注意力网络的个性化推荐系统研究》的总结和理解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002-16478506426911.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002-16478507707182.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/clip_image044.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002-16478512632393.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/clip_image012.jpg">
+<meta property="article:published_time" content="2022-03-21T09:01:21.000Z">
+<meta property="article:modified_time" content="2022-06-20T13:37:53.513Z">
+<meta property="article:author" content="李旭">
+<meta property="article:tag" content="RS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002.jpg">
+
+<link rel="canonical" href="http://example.com/2022/03/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%BB%BC%E8%BF%B0%E5%8F%8AKRAN%E5%8E%9F%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>推荐系统综述及KRAN原理 | Matrix</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Matrix</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%BB%BC%E8%BF%B0%E5%8F%8AKRAN%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="李旭">
+      <meta itemprop="description" content="学习记录。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Matrix">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          推荐系统综述及KRAN原理
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-21 17:01:21" itemprop="dateCreated datePublished" datetime="2022-03-21T17:01:21+08:00">2022-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-20 21:37:53" itemprop="dateModified" datetime="2022-06-20T21:37:53+08:00">2022-06-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">推荐系统</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>《基于知识提纯注意力网络的个性化推荐系统研究》的总结和理解</p>
+<span id="more"></span>
+
+<h1 id="研究背景及意义"><a href="#研究背景及意义" class="headerlink" title="研究背景及意义"></a>研究背景及意义</h1><p>互联网的飞速发展创造丰富的信息资源，人们可以相当方便的获取各种内容，用于学习、娱乐、生活等方面。在人们享受海量信息资源带来的好处的同时，也面临着信息过载的问题，既在海量的信息中找到自己需要的、喜欢的、可能感兴趣的信息比较困难[1]。搜索引擎可以帮助用户从海量信息中搜索、筛选出需要的内容，但是当需求不明确时很难开展搜索[2]。</p>
+<p>推荐系统为解决信息过载提供了更好的方向和途径[3]，推荐系统通过分析用户与信息资源（统称为物品）的交互记录等信息，预测用户可能感兴趣的物品，然后主动推送给用户[4]。目前，推荐系统在购物平台、视频平台、社交平台等都得到了广泛的应用。虽然推荐系统在众多领域都取得了很好的效果[5]，但是仍然存在数据稀疏和冷启动的问题。数据稀疏是指由于用户与物品的交互数据少，推荐系统的性能会大幅降低[6]。冷启动问题是指完全没有用户和物品的交互记录，无法形成有效的推荐[7]。</p>
+<p>研究如何完善推荐系统功能、改进推荐系统性能具有重要意义。从宏观上讲，能够加速经济流动，促进社会经济繁荣[8]；从微观上讲，对于用户能够改善体验、提高效率[9]，对于公司能够增加用户粘性[10]、增加效率和利润[11]。</p>
+<h1 id="国内外研究现状"><a href="#国内外研究现状" class="headerlink" title="国内外研究现状"></a>国内外研究现状</h1><p>传统的推荐算法研究分为三类：基于内容的推荐算法[12]、协同过滤推荐算法、混合推荐算法。</p>
+<p>基于内容的推荐算法是根据用户的历史行为记录[13]，选择与记录中物品类似的物品推荐给用户，但是物品特征提取困难，难以验证物品特征提取的准确性[14]，由于推荐的物品都是类似的，无法发现用户的潜在兴趣，推荐不具有多样性[15]。</p>
+<p>协同过滤推荐算法是基于交互情况相似的用户和物品更加相似的思想[16]，通过找到用户的相似用户对物品的偏好来预测用户对物品的偏好，或者通过找到物品的相似物品是否被用户喜欢来预测物品是否被用户喜欢，一定程度上缓解了推荐的准确性和同质化问题[17]。由于每次推荐都需要计算相似度，在实际应用中会造成负责度太高或内存不足[18]，为了解决这个为题基于模型的协同过滤算法提出先计算出预测模型[19]，然后在预测时直接使用模型得到预测的评分，因此大大降低了推荐任务的内存使用和耗时。当交互矩阵稀疏时，算法的性能就会变差，当完全没有交互记录时，算法就无法进行推荐，也就是协同过滤推荐算法存在的稀疏性问题和冷启动问题。</p>
+<p>混合推荐算法是指综合了基于内容的推荐和基于协同过滤的推荐等各种推荐算法的总称[20]，还可以融合使用其他领域的新方法、新技术，从而形成更加综合、全面的推荐技术。一般来说，当前流行的推荐技术和推荐算法大多数都属于混合推荐算法。</p>
+<p>随着深度学习的蓬勃发展，推荐系统算法也越来越多的结合了深度神经网络的方法[21]，但依然以各种传统推荐算法为基础，力求得到推荐效果更好的混合推荐算法[22]。根据使用的深度学习的方法的不同可以将基于深度学习的推荐系统分为[23]:使用多层感知机的推荐算法、使用递归神经网络的推荐算法、使用卷积神经网络的推荐算法、使用自编码器的推荐算法、使用深度强化学习的推荐算法、基于知识图谱和深度学习的推荐算法等。这个推荐方法通过综合各种类型的信息、综合使用各种不同的处理手段，在一定程度上提高了推荐的准确性，但交互矩阵稀疏性问题和物品的冷启动问题仍然一定程度上困扰着推荐系统，本人发现基于知识图谱和深度学习的推荐算法是一种非常可能有效改善这些问题的研究方向。</p>
+<p>知识图谱是一种用图结构的数据格式来描述显示世界中知识的方法，它本质上是一种语义网络[24]。图结构的数据格式是由节点和边构成的，知识图谱中的节点一般表示概念或实体，边一般表示节点间的关系或者属性。最简单的知识图谱由一系列三元组组成的[25]，三元组的组成方式为：（头、关系、尾），头和尾都是概念或者实体，三元组中间的关系则是表示头和尾之间的关系。三元组形式的知识图谱可以由专家构建、可以由百科类网站或者爬虫软件进行数据的提取和处理、也可以从已有的开放知识库通过API下载[26]。当前国内外研究者普遍认同通过将知识图谱和历史交互矩阵同时融入到推荐系统中，可以很大程度补充由于数据稀疏和较少交互数据所造成的影响，一是因为知识图谱可以增加数据的数量，能够一定程度缓解数据的稀释性问题，二是因为即使没有任何历史交互数据，仍然能够使用知识图去建立各种可能的关系，可以一定程度缓解冷启动问题。知识图谱是一种图网络结构的数据，数据结构是高度异化的，处理起来有较大的难度，但是其中包含着丰富的隐含信息，如果能高效的使用知识图谱，将十分有利于提高推荐系统的性能。</p>
+<p>当前很多关于图网络结构数据处理的研究可以借鉴到知识谱图的处理和在推荐系统中应用，比如Kipf等人[27]详细的阐述了图卷积网络(GCN)的理论基础和实现方式，通过将一个相同的操作作用于整个图网络结构上，从而提取到了图网络结构中的有效</p>
+<p>结构信息。Hamilton等人[28]则提出了一种叫做 GraphSage 的网络，这种网络解决了图卷积网络中一旦结构有变化就必须进行全局更新的问题，从而避免了微小变动所导致的大量重复计算问题。Velickovic等人[29]提出了图注意力网络(GAT)，GAT将声音和图像识别处理领域的注意力机制的方法借鉴到了图网络结构数据的处理当中，通过将图网络中不同节点之间的关系赋予不同的注意力权重，进而完成图结构信息的有效获取，最终实现了一个节点分类的系统，虽然这一研究没有应用到知识图谱的处理领域，也没有应用到推荐系统当中，但是却对使用知识图谱的推荐系统的研究具有很好的借鉴意义。</p>
+<p>另外，使用知识图谱辅助和优化推荐系统的前人研究也有很多。比如Wang等人[30]提出了纹波网络， 采用一种类似于纹波扩散的方法对知识图谱进行利用，让知识如水波一样在知识图谱中传播，直到整个系统收敛。Wang等人[31]提出了知识图谱卷积网络，采用图卷积网络对知识图谱中的各种信息进行统一的聚合和处理，最后实现了较好的推荐效果。Palumbo等人[32]研究了一种叫做Entity2Rec的推荐系统，利用知识图谱学习用户之间或用户和物品之间的相关性，进而形成比较有效的推荐；Heitmann等人[33]提出了一种被称为SemStim的推荐算法，这是一种无监督的基于知识图谱的跨领域推荐算法，使得在某一个领域的知识能够跨领域应用到其它领域的推荐当中。</p>
+<p>在于知识图谱相关的研究领域中，知识图谱的低维嵌入技术与本课题的联系也十分紧密，经典的知识图谱低维嵌入技术是Trans系列文章(包括TransE[34],TransH[35]等)，其基本思想为：对于知识图谱中的三元组，尽量让知识图谱的低维嵌入向量符合‘头+关系&#x3D;尾’，整个系列都是在这个基础上不断进行优化。但是前述方法的研究基础和推荐系统的关系有些相违背，推荐系统追求的关系应该是‘头*尾&#x3D;关系’的格式。除此之外，还有一种得到低维嵌入向量表示的算法是DeepWalk[36]，这种算法能够保留节点之间相互的关联关系，如果能够对这种保留的关联关系进行有效利用，那么就可以顺利应用在推荐系统当中了。</p>
+<h1 id="知识图谱改善数据稀疏的原理"><a href="#知识图谱改善数据稀疏的原理" class="headerlink" title="知识图谱改善数据稀疏的原理"></a>知识图谱改善数据稀疏的原理</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002.jpg" alt="clip_image002"></p>
+<p>从上图可以看到，在只有交互矩阵的情况下，交互记录的数量比较少，在加入知识图谱之后，一定程度上丰富了推荐系统中的关系数量，如果对知识图谱携带的信息进行有效利用，便可以使数据稀疏性的问题得到很大程度上的改善和缓解。从图中可以发现，每一个实体周围的实体的数量、类型等和其他实体相比都有可能是不同的，所以知识图谱这种异构性的图网络结构数据在处理上存在一定的难度。</p>
+<h1 id="图结构数据的传统处理方法"><a href="#图结构数据的传统处理方法" class="headerlink" title="图结构数据的传统处理方法"></a>图结构数据的传统处理方法</h1><p>起初参考卷积神经网络处理图片的方法，提出了图卷积神经网络。图卷积神经网络的实现方式有两种，第一种叫做基于谱方法的图卷积神经网络，另外一种则是基于空间方法的图卷积神经网络。谱方法是通过拉普拉斯矩阵记录图结构本身的性质，然后进行傅里叶变换，最终得到图域的卷积运算结果。空间方法是使用图中节点所邻接的矩阵来提取特征，对应到知识图谱中，就是从知识图谱的实体的邻居集合中提取有用的信息，这也是本项目重点探讨和研究的知识图谱的处理方式。</p>
+<p>在对图结构数据进行处理和使用的研究中，比较有代表性的方法有以下几种：</p>
+<p>（1）纹波网络（RippleNet），采用类似于水波扩散的方法来处理知识图谱中各个实体的信息，每一个实体将其所携带的信息先传递到一跳距离的邻居节点上，然后再传递到二跳距离的邻居节点上，如此进行下去，直到知识图谱中的每个节点的信息都达到收敛状态，然后利用知识图谱中的实体信息进行推荐系统中用户偏好的实际预测。缺点是实体信息在传递过程中缺乏目的性，不能充分的探索和挖掘实体之间隐含的关系。</p>
+<p>（2）图卷积网络（GCN），使用的是一种半监督学习的方式，用一种基于谱的方法进行图的一阶局部的近似，这种方法能够学习到图中任意局部位置的结构特征，而且能够对得到的实体用编码的形式进行表达。缺点是计算量过大，占用过多的 GPU，而且在聚合的时候缺乏一定的重要性区分。</p>
+<p>（3）GraphSage方法，该方法是对GCN方法的改进。GCN是基于谱方法的计算方式，需要把所有节点都进行计算才能得到最终结果，而GraphSage是基于空域方法，采用聚合的方式来获得节点的低维向量表示，不依赖与整个图的所有节点，可以方便地计算得到某个节点的向量表示，但是仍然存在节点聚合过程中缺乏目的性等问题。</p>
+<p>（4）知识图卷积网络（KGCN），使用了和GraphSage非常类似的思想，并且将知识图谱和图卷积网络的方法结合起来应用到推荐系统中，通过采样的方式来保持每个实体节点邻居数量的稳定一致，从而确保了计算的可预测性。这种算法仍然面临着聚合目标不明确的问题，但是其将知识图谱和图卷积网络应用到推荐系统中的方式是很值得借鉴和学习的。</p>
+<p>（5）图注意力网络（GAT），将图像处理领域中使用的注意力机制迁移到图结构数据处理中，使用注意力机制进行图中节点邻居的重要性区分，让图结构的处理中的目的性更强。如果能将这种思想借鉴到处理知识图谱中，并应用到推荐系统里，将会对提升推荐系统性能发挥积极的作用。</p>
+<h1 id="注意力机制"><a href="#注意力机制" class="headerlink" title="注意力机制"></a>注意力机制</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002-16478506426911.jpg" alt="clip_image002-16478506426911"></p>
+<p>上图中处于中心位置的e代表知识图谱中任意一个实体节点，实体节点e周围的N1，N2，N3，…，Nn表示其邻居节点，其中n为实体节点e的邻居节点的个数。在左半张图中，每个邻居节点到实体节点e的引线宽度都是一致的，表示每个邻居节点对实体节点的重要性是一样的。右半张图是采用注意力机制之后，引线的宽度反映了邻居节点对实体节点e的重要程度，越重要的邻居节点引线越粗，越不重要的邻居节点引线越细。通过这种方法，可以比较容易的对不同的邻居的重要性进行区分，进而能够使得知识图谱的处理更有目的性。</p>
+<p>传统的注意力机制首先通过计算实体节点e与每个邻居节点之间的相似性得到实体节点e与每个邻居节点之间的注意力系数。然后根据第一个步骤所计算出来的注意力系数对实体节点e进行加权聚合。注意力机制在推荐系统中是很有必要的，因为如果不区分邻居节点的重要性，会导致过多的噪音信息被聚合，导致推荐系统性能下降。虽然注意力机制降低了相关性差的节点的权重，但是在经过多重聚合操作之后，这些相关性差的节点所包含的信息依然可能会导致聚合过多不重要的信息，导致聚合精度的下降，如果能将相关性很差的节点丢弃，仅保留重要的节点信息，可能会取得更好的聚合效果。</p>
+<h1 id="基于知识提纯注意力网络的KRAN-NM算法原理"><a href="#基于知识提纯注意力网络的KRAN-NM算法原理" class="headerlink" title="基于知识提纯注意力网络的KRAN-NM算法原理"></a>基于知识提纯注意力网络的KRAN-NM算法原理</h1><p>这一小节将会展示本项目所提出的一种经典注意力机制的改进版本，并且将这种改进版本的注意力机制命名为知识提纯注意力机制。使用这种知识提纯注意力机制去处理知识图谱中的图网络结构数据，并且将处理后的知识图谱应用到推荐系统当中，得到本项目所提出的KRAN-NM推荐算法。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002-16478507707182.jpg" alt="img"></p>
+<p>知识提纯注意力机制首先对e0的所有邻居节点进行一次随机采样操作，一是保证采样后邻居节点的数量是固定的，避免由于邻居数量变动过大而造成数据处理中的数据倾斜问题，二是方便后续的处理，方便修改和调试。假设采样个数为C，当e0的邻居节点个数大于等于C时采用不重复的随机采样，当e0的邻居节点个数小于C时采用重复的随机采样，将采样后所得到的邻居节点的集合命名为H。</p>
+<p>假设实体节点e0的初始化向量表示为$\vec{h}$，采样后的邻居节点的集合H的嵌入向量表示被定义为$\vec{H}$，$\vec{H}&#x3D;{\vec{h_1},\vec{h_2},\ldots,\vec{h_C}}$, $\vec{h_i}{\in R}^J$($i\in{0,1,…,C}$)根据公式（1）计算实体节点e0与每一个采样后的邻居节点之间的注意力稀疏Ti。公式（1)如下所示：</p>
+<p>$$T_i&#x3D;a\left(\vec{h_0},\vec{h_i}\right) \tag{1}$$</p>
+<p>在公式（1）中$a(·,·)$表示计算注意力系数的操作，在推荐系统中比较适合用内积操作，因为一般用实体节点之间的相似性来度量他们之间的重要性程度，实体节点之间越相似，实体节点之间的重要性权重越大，这也意味着实体节点之间的注意力系数也越大，而内积操作恰好能够满足这种需求。</p>
+<p>接下来，使用公式(2)对公式(1)中计算出来的注意力系数进行标准化操作，得到标准化后的注意力系数，将其</p>
+<p>命名为注意力因子$\alpha_i$。公式(2)如下所示：</p>
+<p>$$\alpha_i&#x3D;\frac{\exp{\left(T_i\right)}}{\mathrm{\Sigma}_{\vec{h_j}\in\vec{H}}\exp{\left(T_j\right)}} \tag{2}$$</p>
+<p>在公式(2)中，exp(·)指的是以自然常数为底数的指数函数，通过标准化处理，可以保证每一个注意力因子的取值范围都在0-1之间，而且各实体邻居的注意力因子之和为1，这更加符合加权聚合的思想。</p>
+<p>接下来使用公式(3)进行知识提纯注意力机制中的提纯操作，得到提纯注意力因子$\beta_i$。公式(3)如下所示：</p>
+<p>$$\beta_i&#x3D;<br>\begin{cases}<br>  &amp; \alpha_i,{ 如果 } \alpha_i是最大的D个\alpha之一\<br>  &amp; 0,{ 如果 } \alpha_i不是最大的D个\alpha之一<br>\end{cases} \tag{3}$$</p>
+<p>在公式(3)中，D代表提纯的尺寸，并且根据实际要求提纯尺寸D一定是小于等于采用邻居个数C的。公式(3)实际表达的意思是将最大的D个注意力因子直接赋值给提纯注意力因子，将其他的提纯注意力因子设为0，保证了只有高度相关的邻居实体节点才会在聚合中被采纳，相关性差的邻居实体节点将会在聚合中被舍弃掉。</p>
+<p>我们将提纯注意力因子按顺序组成的注意力向量命名为$\vec{B}$，然后结合邻居节点的集合的向量表示$\vec{H}$据公式(4)进行一次聚合操作。公式(4)如下所示：</p>
+<p>$$a\vec{g}g_0&#x3D;\vec{B}\ast\vec{H} \tag{4}$$</p>
+<p>在公式(4)中，“*”表示两个向量中的对应元素相乘，意味着初步聚合的结果为向量$a\vec{g}g_0$，向量中$a\vec{g}g_0$元素的个数与$\vec{B}$和$\vec{H}$相同。</p>
+<p>之后使用一个可调节矩阵Wadj对初步聚合结果向量做处理，然后再将调整的结果与聚合前的向量表示相加。具体方法如下面公式(5)所示：</p>
+<p>$${\vec{h}}_0^\ast&#x3D;{\vec{h}}_0+a\vec{g}g_0·Wadj \tag{5}$$</p>
+<p>经过公式(5)的调整之后还需要对聚合结果${\vec{h}}_0^\prime$根据公式(6)进行规范化处理才能得到最终聚合结果向量，最终聚合结果向量用表${\vec{h}}_0^\prime$示。公式(6)如下所示：</p>
+<p>$${\vec{h}}_0^\prime&#x3D;\frac{\exp{\left({\vec{h}}_0^\ast\right)}-\exp({-\vec{h}}_0^\ast)}{\exp{\left({\vec{h}}_0^\ast\right)}+\exp({-\vec{h}}_0^\ast)} \tag{6}$$</p>
+<p>通过公式(1)到公式(6)的一系列处理过程，完成了知识图谱中随机选择的一个实体节点的聚合过程，当将这一过程应用到知识图谱的每一个节点以后，就可以认为对知识图谱完成了一次注意力机制的卷积操作，这种操作机制就被命名为知识提纯注意力机制。</p>
+<p>当这种基于知识提纯注意力机制的卷积操作在知识图谱上多次运行时，实体节点会有多个不同跳数的结果聚合向量，通过公式(7)对不同跳数的结果聚合向量进行处理，使得每个节点都聚合得到了自己更远跳数的邻居所包含的信息。公式(7)如下所示：</p>
+<p>$${\vec{h}}_0^f&#x3D;{\vec{h}}_0^0\oplus{\vec{h}}_0^1\oplus\ldots\oplus{\vec{h}}_0^F \tag{7}$$</p>
+<p>假设一个实体节点的初始嵌入向量是${\vec{h}}_0^0$，而后每经过一次聚合操作后，嵌入向量右上角的数字所代表的跳数都加1，而公式中的“$\oplus$” 代表了连接操作。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/clip_image044.jpg" alt="img"></p>
+<p>e0代表了知识图谱中被聚合的实体节点，e0右上角括号里面的数字代表了e0所聚集的信息的跳数大小，图中的嵌入表示0到嵌入表示n则代表了跳数0至跳数n的聚合跳数下e0实体节点的嵌入向量的表示，也就是前文中所求出来的${\vec{h}}_0^0-{\vec{h}}_0^n$。图中的“连接”指的是向量连接操作，也就是把嵌入向量连接起来，形成一个更长的向量“最终的嵌入表示”，也就是公式(7)中的${\vec{h}}_0^f$。</p>
+<p>KRAN-NM算法除了需要用前面所提到的知识提纯注意力网络来得到多跳融合的向量表示以外，还需要进行实际的预测，以及通过预测值来构建损失方程，这样才能完成整个推荐模型的构建以及训练。假设要预测偏好的用户u的嵌入向量表示为$\vec{u}$，那么可以通过下面的公式(8)来计算预测的偏好值。</p>
+<p>$$Z\left(\vec{u},{\vec{h}}_0^f\right)&#x3D;&lt;\vec{u},{\vec{h}}_0^f&gt; \tag{8}$$</p>
+<p>公式(8)中最后计算出来的预测的偏好值在损失方程中使用的时候，将简写为大写字母Z，而且公式中的&lt;·,·&gt;所代表的运算在这里指的是内积操作。</p>
+<p>接下来定义KRAN-NM的损失函数，公式(9)如下所示：</p>
+<p>$$L_{loss}&#x3D;\sum_{u\in U}{(\sum_{v\in V_u}{\gamma(\mathrm{\Gamma},Z)})}+\lambda L_{2loss} \tag{9}$$</p>
+<p>在损失方程(9)中，$\mathrm{\Gamma}$指的是实际的在数据集中给定的标注好的用户对物品的偏好的实际值，Z指的是通过公式(3-8)所计算出来的用户对物品的偏好的预测值。公式(9)中的$L_{2loss}$指的是损失方程中的正则化项，用来防止过拟合的，这里使用算法中所有的可训练参数的均方误差(mean square error,MSE)来作为实际使用的正则化项，$\lambda$是正则化项的系数。当均方误差MSE作为损失函数时，其公式如(10)所示：</p>
+<p>$$L_{2loss}&#x3D;\frac{1}{2m}\sum_{i&#x3D;1}^{m}{(y_i-y_{i-})}² \tag{10}$$ </p>
+<p>在公式(10)当中，$y_i$y<sub>i</sub>表示的是预测输出,$y_{i-}$表示的是实际的给定值，m表示样本个数,$L_{2loss}$则表达的是m个样本的损失的均方误差值。当用均方误差作为正则化系数时$y_{i}$表示的是实际的各个可优化参数的大小，$y_{i-}$表示的是目标值，作为正则化系数时，所代表的目$y_{i-}$标值是0。</p>
+<p>公式(9)中的$\gamma(·,·)$指的是交叉熵损失函数。交叉熵损失函数一般用来刻画实际概率分布和预测概率分布之间的距离，也就是一种用预测的概率分布来模拟并表达实际概率分布的难易程度的量，当计算出来的交叉熵越小的时候，表明预测值和实际值的概率分布更加接近。这就可以度量预测值的预测准确性了。交叉熵损失函数的离散形式如下方的公式(11)所示：</p>
+<p>$$\gamma\left(\mathrm{\Gamma},Z\right)&#x3D;-\sum_{i&#x3D;1}^{n}{\mathrm{\Gamma}_i\log(Z_i)} \tag{11}$$</p>
+<p>公式(11)中，$\Gamma_i$表示的是实际数据集中的第i条记录是否存在偏好，$Z_{i}$表示的是训练后所输出的是否存在用户对物品的偏好的预测。</p>
+<p>至此，推荐算法KRAN-NM的原理就基本介绍完了，实际的训练使用小批量随机梯度下降的方法进行训练，每次模型的训练都根据训练集的大小分成若干小批次进行逐批次训练。小批次训练既能够避免全批次训练所造成的训练时间过长的问题（接近于随机梯度下降），又避免了随机梯度下降方法（随机梯度下降每只训练一条数据）所导致的单条训练数据的训练偏差在有些情况下过大的问题，从而使得整个模型尽快到达最优解。</p>
+<h1 id="知识图谱缓解冷启动问题的原理"><a href="#知识图谱缓解冷启动问题的原理" class="headerlink" title="知识图谱缓解冷启动问题的原理"></a>知识图谱缓解冷启动问题的原理</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/clip_image002-16478512632393.jpg" alt="img"></p>
+<p>上图多了一个冷启动节点，在加入知识图谱之前冷启动节点和历史交互矩阵不存在任何的关联关系或交互记录，所以使用传统的推荐方法是难以得到冷启动物品自身的特征的，如果拿不到冷启动物品自身的特征，那么推荐系统也就无法判断这个用户对这个物品的偏好了。还有些算法会将冷启动物品直接推送给用户，采用试错的方式获取用户和冷启动物品产生的交互，进而得到冷启动物品的特性，但是这种策略将极大降低不喜欢冷启动物品的用户对推荐系统的满意度。当加入知识图谱后，虽然冷启动物品与历史交互矩阵中的用户和物品没有直接的连写，但是知识谱图中存在着与交互矩阵中物品的间接联系，如果在冷启动物品刚出现时利用这种简介关系并提取出物品的初始特征的向量表示，那么就能做出较好的推荐了。</p>
+<h1 id="冷启动推荐算法KRAN-CD的原理"><a href="#冷启动推荐算法KRAN-CD的原理" class="headerlink" title="冷启动推荐算法KRAN-CD的原理"></a>冷启动推荐算法KRAN-CD的原理</h1><p>为了能够在推荐系统正式进行推荐之前就得到冷启动物品的初始化预嵌入的低维向量表示，首先要得到根据交互矩阵中的物品集合提取出来的知识图谱，然后使用了一种类似于随机游走的初始化预嵌入技术进行低维预嵌入向量的获取，主要分为以下几个步骤：</p>
+<p>步骤1：对知识图谱中的实体节点进行 one-hot 编码， 这指的是有多少个实体节点，就用多少维度的向量数据来表示整个知识图谱中的每个实体节点。第i个实体节点的向量表示中，第i个维度表示为1，其余维度表示为0。在这里先假设系统中总共有$\eta$个节点，也就是初始的one-hot编码的维度是$\eta$维的，假设J是我们最终想要得到的节点的初始化预嵌入低维向量的维度。</p>
+<p>步骤2：将这些$\eta$维的初始化向量进行神经网络的变换，首先是用这些$\eta$维向量分别乘以一个$\eta\ast J$大小的变换矩阵$W_{a}$，此时得到一系列的J维的向量，再乘以一个$J\ast\eta$大小的变换矩阵$W_{b}$变回原来大小的维的向量。这$\eta$相当于是一个有两个隐藏层的神经网络，参数分别为$W_{a}$和$W_{b}$。</p>
+<p>步骤3：训练这个神经网络的参数，在训练的时候，虽然输入和输出的向量都是$\eta$维度的，但是输入向量和输出向量是不一样的。下面单独从一个节点的情况进行分析：输入向量是知识图谱中某个实体节点的one-hot编码，而输出的是与这个实体节点密切联系的一系列节点对应位置为1的编码，其余不密切联系的节点所对应的位置为0。而与输入的实体节点密切联系的一系列节点是通过随机游走的方法得到的，具体来说就是选取输入的实体节点作为起始节点，然后在知识图谱的图结构中进行随机游走。这是因为，随机游走的路径上的节点之间存在着比较密切的相互关系。</p>
+<p>步骤4：当神经网络达到较好的训练状态的时候，取出变换矩阵$W_{a} $，此时$W_{a} $中的每一行所组成的向量都对应着知识图谱中的一个实体节点的低维嵌入向量表示。也就是说，知识图谱中的第i个实体节点的低维嵌入向量其实就是$W_{a} $中的第i行所构成的向量。</p>
+<p>步骤4之所以使用$W_{a} $作为初始化预嵌入低维向量组成得矩阵，是因为步骤2的变换过程中，其实就是将某个节点（假设是第i个节点）的one-hot长向量表示通过一层神经网络转换成一个与这个节点所对应的有密切联系的J维的短向量，然后再把这个J维的短向量通过另一层神经网络转换为与这个节点密切相关的一系列节点的对应的位置设置为1的长向量，这个过程中，处于中间位置的J维短向量其实就是想要求得第i个实体节点所对应的初始化预嵌入表示。 又因为输入位置的向量采用的是one-hot编码的形式，也就是说对于第i个实体节点来说，整个输入向量里面只有第i位才是1，其余位置都是0，根据向量与矩阵之间的乘法规则，第i个实体节点所对应的J维向量，恰好就是转换矩阵$W_{a} $中第i行所对应的向量。 因此，求得了$W_{a} $也就相当于得到了整个知识图谱中每个节点所对应的初始化预嵌入低维向量所组成的矩阵。</p>
+<p>接下来知识图谱节点的初始化预嵌入低维向量组成的集合$W_{a}$作为基础，进而提取出知识图谱中某个实体节点的随机采样邻居节点的集合所对应的初始化预嵌入低维向量矩阵，并将这个矩阵定义为$\vec{I}$，当进行推荐是需要使用神经网络对这些初始化向量进行进一步的处理，这可以更进一步的挖掘隐藏在嵌入向量内部的特征信息。处理方法见下图。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/clip_image012.jpg" alt="img"></p>
+<p>上图的内容也可以用公式进行更准确的表达，下面的公式(12)描述了对实体节点邻居的初始化低维嵌入矩阵$\vec{I}$的处理：</p>
+<p>$$\vec{H}&#x3D;\sigma(\sigma(I·W_1+b_1)·W_1+b_2) \tag{12}$$</p>
+<p>公式(12)表示的是一个含有两个隐藏层的神经网络，这个神经网络作为了一个转化媒介，式中的$W_1$和$b_1$是第一个隐藏层的参数，$W_2$和$b_2$是第二个隐藏层的参数，而公式中的$\vec{H}$可以当作任意一个实体节点的邻居节点的集合的嵌入矩阵表示。当经过公式(12)的处理以后，就可以使用公式(1)~公式(11)，结合知识图谱进行具体的信息的提取、聚合、模型的训练和用户对物品的偏好预测了。具体的步骤在此就不在重复列出了。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>[1] Costa H, Macedo L. Emotion-Based Recommender System for Overcoming the Problem of Information Overload[C]. The 11th PAAMS, 2013: 178-189.</p>
+<p>[2] Wei L. A Study of Personalization Recommendation System Based on Search Result[J]. Computer Technology and Development, 2007, 017(009):65-67,70. </p>
+<p>[3] Castro J, Lu J, Zhang G, et al. Opinion Dynamics-Based Group Recommender Systems[J]. Systems Man and Cybernetics, 2018, 48(12): 2394-2406. </p>
+<p>[4] Lam S, Riedl J. Shilling Recommender Systems for Fun and Profit[C]. The Web Conference, 2004: 393-402. </p>
+<p>[5] Pi Q, Bian W, Zhou G, et al. Practice on Long Sequential User Behavior Modeling for Click-Through Rate Prediction[C]. Knowledge Discovery and Data Mining, 2019: 2671-2679. </p>
+<p>[6] Liu B, Sun Y. Survey of Personalized Recommendation Based on Society Networks Analysis[C]. Information Management, Innovation Management and Industrial Engineering, 2013: 337-340. </p>
+<p>[7] Wang G. Survey of Personalized Recommendation System[J]. Computer Engineering and Applications, 2012, 48(7): 66-76. </p>
+<p>[8] Tian Y, Zhu Z, Liu S. Review of Recommendation System Based on Linked Data[J]. Data Analysis and Knowledge Discovery, 2013, 29(10): 1-7. </p>
+<p>[9] Schafer B, Konstan J, Riedl J. Recommender Systems in E-commerce[C]. Electronic Commerce, 1999: 158-166. </p>
+<p>[10]Schafer B, Konstan J, Riedl J. E-Commerce Recommendation Applications[J]. Data Mining and Knowledge Discovery, 2001, 5(1): 115-153. </p>
+<p>[11]Wei K, Huang J, Fu S. A Survey of E-Commerce Recommender Systems[C]. ICSSSM, 2007: 1-5.</p>
+<p>[12]Tkalcic M, Odic A, Kosir A, et al. Affective Labeling in a Content-Based Recommender System for Images[J]. IEEE Transactions on Multimedia, 2013, 15(2): 391-400.</p>
+<p>[13]Iaquinta L, Gemmis M, Lops P, et al. Introducing Serendipity in a Content-Based Recommender System[C]. Hybrid Intelligent Systems, 2008: 168-173. </p>
+<p>[14]Si L, Jin R. Unified Filtering by Combining Collaborative Filtering and Content-based Filtering via Mixture Model and Exponential Model[C]. Conference on Information and Knowledge Management, 2004: 156-157.</p>
+<p>[15]Freddy L. Combining Collaborative Filtering and Semantic Content-Based Approaches to Recommend Web Services[C]. IEEE Fourth International Conference on Semantic Computing. IEEE Computer Society, 2010: 200-205. </p>
+<p>[16]Resnick P, Iacovou N, Suchak M, et al. GroupLens: An Open Architecture for Collaborative Filtering of Netnews[C]. Conference on Computer Supported Cooperative Work, 1994: 175-186.</p>
+<p>[17]Sarwar B, Karypis G, Konstan J, et al. Item-based Collaborative Filtering Recommendation Algorithms[C]. The Web Conference, 2001: 285-295. </p>
+<p>[18]Yu K, Schwaighofer A, Tresp V, et al. Probabilistic Memory-based Collaborative Filtering[J]. IEEE Transactions on Knowledge and Data Engineering, 2004, 16(1): 56-69.</p>
+<p>[19]Bojnordi E, Moradi P. A Novel Collaborative Filtering Model Based on Combination of Correlation Method with Matrix Completion Technique[C]. Csi International Symposium on Artificial Intelligence and Signal Processing, 2012, 37(1): 191-194.</p>
+<p>[20]Bostandjiev S, Odonovan J, Hollerer T. TasteWeights: A Visual Interactive Hybrid Recommender System[C]. Conference on Recommender Systems, 2012: 35-42.</p>
+<p>[21]Sikka R, Dhankhar A, Rana C. A Survey Paper on E-Learning Recommender System[J]. International Journal of Computer Applications, 2012, 47(9):27-30. </p>
+<p>[22]Elkahky A M, Song Y, He Xiaodong. A Multi-View Deep Learning Approach for Cross Domain User Modeling in Recommendation Systems[C]. The 24th International Conference. International World Wide Web Conferences Steering Committee, 2015: 278-288. </p>
+<p>[23]Huang L, Jiang B, Lv S, et al. Survey on Deep learning Based Recommender System[J]. Chinese Journal of Computers, 2018, 41(07):191-219.</p>
+<p>[24]Nickel M, Murphy K, Tresp V, et al. A Review of Relational Machine Learning for Knowledge Graphs[J]. ArXiv: Machine Learning, 2016, 104(1): 11-33. </p>
+<p>[25]Lukovnikov D, Fischer A, Lehmann J, et al. Neural Network-based Question Answering over Knowledge Graphs on Word and Character Level[C]. The Web Conference, 2017: 1211-1220. </p>
+<p>[26]Fu Y, Wang X, Feng Z, et al. Organization and Integration of Chinese Encyclopedia Knowledge Based on Semantic Web[J]. Computer Engineering and Applications, 2015: 120-126.</p>
+<p>[27]Kipf T, Welling M. Semi-Supervised Classification with Graph Convolutional Networks[C]. International Conference on Learning Representations, 2017: 1-14. </p>
+<p>[28]Hamilton W, Ying R, Leskovec J, et al. Inductive Representation Learning on Large Graphs[C]. Neural Information Processing Systems, 2017: 1024-1034. </p>
+<p>[29]Velickovic P, Cucurull G, Casanova A, et al. Graph Attention Networks[C]. International Conference on Learning Representations, 2018: 1-12. </p>
+<p>[30]Wang H, Zhang F, Wang J, et al. RippleNet: Propagating User Preferences on the Knowledge Graph for Recommender Systems[C]. Conference on Information and Knowledge Management, 2018: 417-426. </p>
+<p>[31]Wang H, Zhao M, Xie X, et al. Knowledge Graph Convolutional Networks for Recommender Systems[C]. The Web Conference, 2019: 3307-3313. </p>
+<p>[32]Palumbo E, Rizzo G, Troncy R. Entity2rec: Learning User-Item Relatedness from Knowledge Graphs for Top-N Item Recommendation[C]. Conference on Recommender Systems, 2017: 32-36.</p>
+<p>[33]Heitmann B, Hayes C. SemStim: Exploiting Knowledge Graphs for Cross-Domain Recommendation[C]. International Conference on Data Mining, 2016: 999-1006. </p>
+<p>[34]Bordes A, Usunier N, Garciaduran A, et al. Translating Embeddings for Modeling Multi-relational Data[C]. Neural Information Processing Systems, 2013: 2787-2795.</p>
+<p>[35]Wang Z, Zhang J, Feng J, et al. Knowledge Graph Embedding by Translating on Hyperplanes[C]. National Conference on Artificial Intelligence, 2014: 1112-1119. </p>
+<p>[36]Perozzi B, Alrfou R, Skiena S, et al. DeepWalk: Online Learning of Social Representations[C]. Knowledge Discovery and Data Mining, 2014: 701-710.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RS/" rel="tag"># RS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/06/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="李宏毅机器学习笔记">
+      <i class="fa fa-chevron-left"></i> 李宏毅机器学习笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/24/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E8%AE%BA%E6%96%87%E5%B0%8F%E7%8F%AD/" rel="next" title="推荐系统论文小班">
+      推荐系统论文小班 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF%E5%8F%8A%E6%84%8F%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">研究背景及意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BD%E5%86%85%E5%A4%96%E7%A0%94%E7%A9%B6%E7%8E%B0%E7%8A%B6"><span class="nav-number">2.</span> <span class="nav-text">国内外研究现状</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E6%94%B9%E5%96%84%E6%95%B0%E6%8D%AE%E7%A8%80%E7%96%8F%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">知识图谱改善数据稀疏的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E7%BB%93%E6%9E%84%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BC%A0%E7%BB%9F%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">图结构数据的传统处理方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6"><span class="nav-number">5.</span> <span class="nav-text">注意力机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%9F%A5%E8%AF%86%E6%8F%90%E7%BA%AF%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%BD%91%E7%BB%9C%E7%9A%84KRAN-NM%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">基于知识提纯注意力网络的KRAN-NM算法原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1%E7%BC%93%E8%A7%A3%E5%86%B7%E5%90%AF%E5%8A%A8%E9%97%AE%E9%A2%98%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">知识图谱缓解冷启动问题的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%B7%E5%90%AF%E5%8A%A8%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95KRAN-CD%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">8.</span> <span class="nav-text">冷启动推荐算法KRAN-CD的原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">9.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李旭"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">李旭</p>
+  <div class="site-description" itemprop="description">学习记录。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/EverestLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;EverestLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李旭</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

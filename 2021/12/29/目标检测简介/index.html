@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="图像合成课程小组作业的个人部分，包括目标检测的发展、数据集和评价指标、常用算法总结、不足及发展方向和应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="目标检测简介">
+<meta property="og:url" content="http://example.com/2021/12/29/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Matrix">
+<meta property="og:description" content="图像合成课程小组作业的个人部分，包括目标检测的发展、数据集和评价指标、常用算法总结、不足及发展方向和应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205009371.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205118612.png">
+<meta property="og:image" content="http://example.com/images/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%80%E4%BB%8B/image-20211229134750999.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210018455.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210034267.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210044896.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210056865.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210109705.png">
+<meta property="article:published_time" content="2021-12-29T12:56:02.000Z">
+<meta property="article:modified_time" content="2022-06-20T13:29:50.251Z">
+<meta property="article:author" content="李旭">
+<meta property="article:tag" content="CV">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205009371.png">
+
+<link rel="canonical" href="http://example.com/2021/12/29/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%80%E4%BB%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>目标检测简介 | Matrix</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Matrix</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/29/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="李旭">
+      <meta itemprop="description" content="学习记录。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Matrix">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          目标检测简介
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-29 20:56:02" itemprop="dateCreated datePublished" datetime="2021-12-29T20:56:02+08:00">2021-12-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-20 21:29:50" itemprop="dateModified" datetime="2022-06-20T21:29:50+08:00">2022-06-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" itemprop="url" rel="index"><span itemprop="name">计算机视觉</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>图像合成课程小组作业的个人部分，包括目标检测的发展、数据集和评价指标、常用算法总结、不足及发展方向和应用。</p>
+<span id="more"></span>
+
+<h1 id="什么是目标检测"><a href="#什么是目标检测" class="headerlink" title="什么是目标检测"></a>什么是目标检测</h1><p>目标检测是计算机视觉的一个基本任务，是实例分割、目标跟踪等的基础，目的是标出图像中的物体并进行分类，应用有行人检测、人脸识别、文字识别等。目标检测研究的目标是提高检测的准确率和速度。</p>
+<h1 id="目标检测历史"><a href="#目标检测历史" class="headerlink" title="目标检测历史"></a>目标检测历史</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205009371.png" alt="image-20220213205009371"></p>
+<p>2014年以前属于传统目标检测时期，2014年以后属于深度学习目标检测时期</p>
+<h2 id="传统目标检测"><a href="#传统目标检测" class="headerlink" title="传统目标检测"></a>传统目标检测</h2><p>最早的目标检测是通过人工提取特征，然后使用加速技巧在有限的计算机资源上运行。</p>
+<p>Viola Jones通过滑窗的方法大大提高了目标检测的速度。</p>
+<p>HOG（有向梯度直方图）将图片分成均匀间隔的网格，然后在一部分网格上计算，通过重叠位置的差异来提高精度，可以用于检测多种目标类别，是许多目标检测方法的基础。</p>
+<p>DPM（Deformable Part-based Model）是将一个目标分解成各个组成部分，然后对组成部分进行识别。包括一个主过滤器和众多分过滤器，并且可以自动学习过滤器参数。</p>
+<h2 id="两阶段CNN"><a href="#两阶段CNN" class="headerlink" title="两阶段CNN"></a>两阶段CNN</h2><p>从粗到细</p>
+<p>RCNN从图片中选择多个区域，分别提取特征进行分类。该方法大大提高了检测的精度，但是会产生大量无效的计算，造成检测速度慢。</p>
+<p>SPPNet通过一次计算生成特征图，图片中的任意区域都能获得固定长度的表示。减少了无效的计算，提高了检测速度，但是训练仍然是多阶段的。</p>
+<p>Fast RCNN可以使用同一个网络训练区域检测器和识别器，大大提高了检测的精度和速度，但是速度还是受到检测区域提取的限制。</p>
+<p>Faster RCNN是第一个端到端（忽略中间过程）的深度学习检测器，检测区域提取的开销几乎为零。虽然突破了速度的瓶颈，但是在检测阶段仍然存在多余的计算。</p>
+<p>Feature Pyramid Network通过自顶向下的横向连接，解决了CNN只在网络顶层进行检测，损失了深层的检测能力和深层不利于目标定位的问题。</p>
+<h2 id="单阶段CNN"><a href="#单阶段CNN" class="headerlink" title="单阶段CNN"></a>单阶段CNN</h2><p>一步完成</p>
+<p>YOLO使用一个网络同时完成区域分割和概率计算，随后提出v2，v3版本，大大提高了检测的速度。相比两阶段的方法，对于小目标的定位精度较低。</p>
+<p>SSD提出了多参数和多分辨率检测技术，提高了单阶段检测的精度。</p>
+<p>RetinaNet提出焦点损失，让网络在训练中更关注困难、分类错误的例子，使单阶段检测有了接近两阶段检测的精度，同时有很快的速度。</p>
+<h2 id="Anchor-Based-x2F-Free"><a href="#Anchor-Based-x2F-Free" class="headerlink" title="Anchor Based&#x2F;Free"></a>Anchor Based&#x2F;Free</h2><p>根据是否使用Anchor，也就是否有候选框又可以分为 “Anchor Based”和“Anchor Free”，Anchor Based的方法是目前使用较多的，存在干扰信息较多、Anchor设置麻烦、计算量大等问题，Anchor Free的方法则为了解决这些问题，提出了“关键点”、“目标边缘”等取代Box。</p>
+<h1 id="目标检测数据集和评价指标"><a href="#目标检测数据集和评价指标" class="headerlink" title="目标检测数据集和评价指标"></a>目标检测数据集和评价指标</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205118612.png" alt="image-20220213205118612"></p>
+<p>Pascal VOC在2005年至2012年间展开，每年举行一次，为图像识别和分类提供了一整套标准化的优秀的数据集，是衡量图像分类识别能力的基准。分为VOC07和VOC12，对象分为20个类别，VOC07包含5k多张训练图片和12000多标注的对象，VOC12包含11k多张训练图片和27k多标注的对象。</p>
+<p>ImageNet是世界上图像识别最大的数据库，包含超过1400万的图像和超过2万个分类。从2010年到2017年每年举行一次ILSVRC竞赛，会从ImageNet数据集中抽出部分样本，包含200个类别，图片数量和标注的对象比VOC大两个数量级，ILSVRC-14包含517k图片和534k标注对象，旨在追踪2005年建立的规模较小的PASCAL VOC挑战。</p>
+<p>MS-COCO由微软开发维护，包含91个常见对象类别，其中82个类别具有超过5k个标记实例。数据集包含328k个图像，总共有2500k个标记实例。相比ILSVRC的类别少但是有更多的实例，MS-COCO-17在80个分类中有164k图片和897k标注对象，并且使用图像分割，增加目标位置的精度。相比VOC和ILSVRC，MS-COCO有更多的小目标和密集目标，更加接近真实世界。</p>
+<p>Open Image是一个非常大的数据集，有600个类别，包含1910k图片和15440k标注的图框。</p>
+<p><img src="/../images/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%80%E4%BB%8B/image-20211229134750999.png" alt="image-20211229134750999"></p>
+<h2 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h2><p>精确率：预测的正样本中有多少是真正的正样本</p>
+<p>召回率：样本中的正例有多少被预测正确了</p>
+<p>AP：一个类别在不同召回率下的平均精确率</p>
+<p>mAP：对于所有类别的平均AP</p>
+<p>IOU：预测区域与标准区域的交并比，超过0.5就算成功识别</p>
+<p>MS-COCO AP：在多个IOU（0.5-0.95）上取平均精确率</p>
+<h1 id="目标检测的发展"><a href="#目标检测的发展" class="headerlink" title="目标检测的发展"></a>目标检测的发展</h1><h2 id="骨干网络"><a href="#骨干网络" class="headerlink" title="骨干网络"></a>骨干网络</h2><p>AlexNet：一个八层的深度网络，是机器视觉领域第一个CNN模型。</p>
+<p>VGG：模型深度增加到了16-19层，使用更小的卷积核，获得了更好的性能。</p>
+<p>GoogLeNet：由谷歌提出的CNN模型集合，增加了CNN的宽度和深度，主要共享是引入了分解卷积核批量归一化。</p>
+<p>ResNet：网络的深度达到了152层，目标是简化网络的训练。</p>
+<p>DenseNet：在ResNet的基础上提出了将每一层都连接到其他层的连接块。</p>
+<p>SENet：主要为了提升模型对channel特征的敏感性，只需要增加较少的计算量就可以带来性能的提升。</p>
+<h2 id="无滑窗"><a href="#无滑窗" class="headerlink" title="无滑窗"></a>无滑窗</h2><p>子区域搜索：一是将检测视为一个路径规划过程，画出一个标准的框。二是将检测视为一个迭代更新过程，来预测边界的点。</p>
+<p>关键点定位：目标框可以由两个点确定，所以目标检测任务等价于确定两个点的问题。优点是可以在语义分割框架下实现。</p>
+<h1 id="算法总结"><a href="#算法总结" class="headerlink" title="算法总结"></a>算法总结</h1><table>
+<thead>
+<tr>
+<th><strong>Method</strong></th>
+<th><strong>Backbone</strong></th>
+<th><strong>Proposed Year</strong></th>
+<th><strong>Reference</strong></th>
+<th><strong>highlights</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>YOLO-V1</strong></td>
+<td>VGG16</td>
+<td>2016</td>
+<td>CVPR</td>
+<td>比以往的检测器快很多</td>
+</tr>
+<tr>
+<td><strong>YOLO-V2</strong></td>
+<td>Darknet</td>
+<td>2017</td>
+<td>CVPR</td>
+<td>实现了高精度、高速度</td>
+</tr>
+<tr>
+<td><strong>YOLO-V3</strong></td>
+<td>Darknet</td>
+<td>2018</td>
+<td>arXiv</td>
+<td>速度更快、提高了小目标检测能力</td>
+</tr>
+<tr>
+<td><strong>YOLO-V4</strong></td>
+<td>CSPDarknet</td>
+<td>2020</td>
+<td>arXiv</td>
+<td>在保证速度的同时，大幅提高模型的检测精度</td>
+</tr>
+<tr>
+<td><strong>YOLO-X</strong></td>
+<td>Darknet</td>
+<td>2021</td>
+<td>arXiv</td>
+<td>将YOLO检测器调整为Anchor-Free形式,并集成了其他先进检测技术</td>
+</tr>
+<tr>
+<td><strong>POLY-YOLO</strong></td>
+<td>SE-Darknet-53</td>
+<td>2020</td>
+<td>CVPR</td>
+<td>体积更小、速度更快</td>
+</tr>
+<tr>
+<td><strong>SSD</strong></td>
+<td>VGG16</td>
+<td>2016</td>
+<td>ECCV</td>
+<td>将RPN和YOLO的思想结合，比YOLO更快更准确</td>
+</tr>
+<tr>
+<td><strong>DSSD</strong></td>
+<td>ResNet101</td>
+<td>2017</td>
+<td>CVPR</td>
+<td>提高浅层的表征能力</td>
+</tr>
+<tr>
+<td><strong>FSSD</strong></td>
+<td>VGG16</td>
+<td>2016</td>
+<td>ECCV</td>
+<td>将浅层的细节特征和高层的语义特征结合</td>
+</tr>
+<tr>
+<td><strong>Retina-Net</strong></td>
+<td>ResNet101</td>
+<td>2018</td>
+<td>ICCV</td>
+<td>提出了Focal Loss，解决了正负样本不平衡问题</td>
+</tr>
+<tr>
+<td><strong>CornerNet</strong></td>
+<td>Hourglass104</td>
+<td>2018</td>
+<td>ECCV</td>
+<td>用一对关键点取代边界框</td>
+</tr>
+<tr>
+<td><strong>CenterNet</strong></td>
+<td>ResNet101</td>
+<td>2019</td>
+<td>CVPR</td>
+<td>直接检测目标的中心点和大小，是真正的Anchor-Free</td>
+</tr>
+<tr>
+<td><strong>SAPD</strong></td>
+<td>ResNet101</td>
+<td>2020</td>
+<td>CVPR</td>
+<td>解决了注意力偏差和特征选择问题</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong>Method</strong></th>
+<th><strong>Backbone</strong></th>
+<th><strong>AP</strong></th>
+<th><strong>fps</strong></th>
+<th><strong>Dateset</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>YOLOv4</strong></td>
+<td>CSPDarknet-53</td>
+<td>41.2</td>
+<td>54</td>
+<td>COCO</td>
+</tr>
+<tr>
+<td><strong>YOLOX</strong></td>
+<td>Darknet-53</td>
+<td>47.4</td>
+<td>90.1</td>
+<td>COCO</td>
+</tr>
+<tr>
+<td><strong>RetinaNet</strong></td>
+<td>ResNet101</td>
+<td>39.1</td>
+<td></td>
+<td>COCO</td>
+</tr>
+<tr>
+<td><strong>SAPD</strong></td>
+<td>RestNet50</td>
+<td>41.7</td>
+<td></td>
+<td>COCO</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th><strong>Method</strong></th>
+<th><strong>Backbone</strong></th>
+<th><strong>mAP</strong></th>
+<th><strong>fps</strong></th>
+<th><strong>Dateset</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>YOLO</strong></td>
+<td>VGG16</td>
+<td>57.9</td>
+<td>&lt;25</td>
+<td>VOC12</td>
+</tr>
+<tr>
+<td><strong>YOLOv2</strong></td>
+<td>DarkNet</td>
+<td>73.5</td>
+<td>&lt;50</td>
+<td>VOC12</td>
+</tr>
+<tr>
+<td><strong>SSD300</strong></td>
+<td>VGG16</td>
+<td>74.9</td>
+<td>&lt;60</td>
+<td>VOC12</td>
+</tr>
+<tr>
+<td><strong>SSD512</strong></td>
+<td>VGG16</td>
+<td>78.5</td>
+<td></td>
+<td>VOC12</td>
+</tr>
+<tr>
+<td><strong>DSSD513</strong></td>
+<td>ResNet104</td>
+<td>80</td>
+<td></td>
+<td>VOC12</td>
+</tr>
+<tr>
+<td><strong>CenterNet</strong></td>
+<td>ResNet101</td>
+<td>78.7</td>
+<td></td>
+<td>VOC07</td>
+</tr>
+<tr>
+<td><strong>CenterNet</strong></td>
+<td>DLA</td>
+<td>80.7</td>
+<td></td>
+<td>VOC07</td>
+</tr>
+</tbody></table>
+<h1 id="不足及发展方向"><a href="#不足及发展方向" class="headerlink" title="不足及发展方向"></a>不足及发展方向</h1><h2 id="模型复杂，算力要求高"><a href="#模型复杂，算力要求高" class="headerlink" title="模型复杂，算力要求高"></a>模型复杂，算力要求高</h2><p>目前神经网络模型在移动端部署还很困难，工业界使用目标识别的主要目的是替代传统的人工，提高生产效率，降低生产成本。在保证精度的前提下如果对硬件算力要求太高，会大大增加生产的成本，可能会阻碍技术的落地。因此模型在保证精度的同时，还需要速度快。学术界致力于研究高精度的轻量化网络架构，而工业界则致力于从硬件的角度出发，开发模型压缩与量化技术来提高模型运算速度。近年来出现的加速技术轻量化网络设计、模型压缩与量化、模型数值加速可能是解决该问题的重要方向。</p>
+<h2 id="小目标检测性能差"><a href="#小目标检测性能差" class="headerlink" title="小目标检测性能差"></a>小目标检测性能差</h2><p>在场景图像中检测小目标一直是目标检测领域长期以来所面临的一个挑战，小目标检测可以用于利用遥感图像统计野生动物的数量、检测军事目标的状态等，为了提高小目标检测性能可以考虑提高输入图像的分辨率、自动学习模型anchors、过滤掉无关的类别等方法。当大目标和小目标同时存在时又会产生新的问题，具有较大感受野的网络能够捕获更大尺度的上下文信息，而具备较小感受野的网络可能更专注于图像的局部细节。高分辨率的特征有利于检测小物体，由于感受野较小缺乏一定的语义信息，因此不利于检测大尺寸物体，而为了增大感受野最直接的办法是引入池化层，但这会导致特征的分辨率降低而不利于检测小物体。因此引入注意力机制和特征融合策略可能是一个研究方向。</p>
+<h2 id="依赖数据集"><a href="#依赖数据集" class="headerlink" title="依赖数据集"></a>依赖数据集</h2><p>基于深度学习检测算法的训练通常依赖于大量高质量标注的图像数据集，而标准过程通常比较耗时且效率低下。运用弱监督目标检测技术，可以使检测算法使用部分边界框标注的数据集进行训练，因此弱监督技术对于降低人力成本和提高检测灵活性非常重要。</p>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="行人检测"><a href="#行人检测" class="headerlink" title="行人检测"></a>行人检测</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210018455.png" alt="image-20220213210018455"></p>
+<p>在自动驾驶、视频监控、刑事侦查等领域有所应用，并且又很大的发展空间，目前的主要挑战有行人在图像中的尺寸小、存在大量类似行人的负样本、行人密集存在遮挡的情况难以识别、实时性能较差等。</p>
+<h2 id="人脸检测"><a href="#人脸检测" class="headerlink" title="人脸检测"></a>人脸检测</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210034267.png" alt="image-20220213210034267"></p>
+<p>在身份认证与安全领域使用较多，目前的主要挑战有人脸具有相当丰富的表情细节变化、口罩等会对人脸进行遮挡、不同人的人脸大小尺寸不同。</p>
+<h2 id="文字识别"><a href="#文字识别" class="headerlink" title="文字识别"></a>文字识别</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210044896.png" alt="image-20220213210044896"></p>
+<p>用于帮助视力障碍人士获取文字信息，通过识别道路信息更便于构建数字地图。目前的主要挑战有一张图中存在不同的字体和语言、文字发生旋转和变形、文字排版密集、残缺和模糊字符较多。</p>
+<h2 id="交通信号检测"><a href="#交通信号检测" class="headerlink" title="交通信号检测"></a>交通信号检测</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210056865.png" alt="image-20220213210056865"></p>
+<p>随着自动驾驶的发展，交通信号检测已经在自动驾驶汽车中搭载，目前的主要挑战有白天和夜晚的光线条件差距大、交通标志模糊、自动驾驶时效性要求高。</p>
+<h2 id="遥感目标检测"><a href="#遥感目标检测" class="headerlink" title="遥感目标检测"></a>遥感目标检测</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210109705.png" alt="image-20220213210109705"></p>
+<p>在军事勘察、灾害救援、城市交通管理领域有着广泛的应用，目前的主要挑战有遥感图像数据量巨大、云层遮挡普遍、不同传感器的遥感图像存在高度差异。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>Zou, Zhengxia, et al. “Object detection in 20 years: A survey.” arXiv preprint arXiv:1905.05055 (2019).<br>Jiao, Licheng, et al. “A survey of deep learning-based object detection.” IEEE access 7 (2019): 128837-128868.<br>Wu, Xiongwei, Doyen Sahoo, and Steven CH Hoi. “Recent advances in deep learning for object detection.” Neurocomputing 396 (2020): 39-64.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CV/" rel="tag"># CV</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/14/%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E7%9B%B8%E5%85%B3%E8%AE%BA%E6%96%87%E4%BB%8B%E7%BB%8D/" rel="prev" title="自动驾驶相关论文介绍">
+      <i class="fa fa-chevron-left"></i> 自动驾驶相关论文介绍
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/06/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" rel="next" title="推荐系统技术综述">
+      推荐系统技术综述 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">1.</span> <span class="nav-text">什么是目标检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%8E%86%E5%8F%B2"><span class="nav-number">2.</span> <span class="nav-text">目标检测历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">2.1.</span> <span class="nav-text">传统目标检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5CNN"><span class="nav-number">2.2.</span> <span class="nav-text">两阶段CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E9%98%B6%E6%AE%B5CNN"><span class="nav-number">2.3.</span> <span class="nav-text">单阶段CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anchor-Based-x2F-Free"><span class="nav-number">2.4.</span> <span class="nav-text">Anchor Based&#x2F;Free</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">目标检测数据集和评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">3.2.</span> <span class="nav-text">评价指标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-number">4.</span> <span class="nav-text">目标检测的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%A8%E5%B9%B2%E7%BD%91%E7%BB%9C"><span class="nav-number">4.1.</span> <span class="nav-text">骨干网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%BB%91%E7%AA%97"><span class="nav-number">4.2.</span> <span class="nav-text">无滑窗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">算法总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3%E5%8F%8A%E5%8F%91%E5%B1%95%E6%96%B9%E5%90%91"><span class="nav-number">6.</span> <span class="nav-text">不足及发展方向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%EF%BC%8C%E7%AE%97%E5%8A%9B%E8%A6%81%E6%B1%82%E9%AB%98"><span class="nav-number">6.1.</span> <span class="nav-text">模型复杂，算力要求高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E5%B7%AE"><span class="nav-number">6.2.</span> <span class="nav-text">小目标检测性能差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">6.3.</span> <span class="nav-text">依赖数据集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E4%BA%BA%E6%A3%80%E6%B5%8B"><span class="nav-number">7.1.</span> <span class="nav-text">行人检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B"><span class="nav-number">7.2.</span> <span class="nav-text">人脸检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB"><span class="nav-number">7.3.</span> <span class="nav-text">文字识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E6%A3%80%E6%B5%8B"><span class="nav-number">7.4.</span> <span class="nav-text">交通信号检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%A5%E6%84%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">7.5.</span> <span class="nav-text">遥感目标检测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李旭"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">李旭</p>
+  <div class="site-description" itemprop="description">学习记录。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/EverestLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;EverestLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李旭</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="李宏毅老师机器学习课程（2021年春）的学习笔记，包含主要章节，内容为课程PPT截图和自己的理解。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="李宏毅机器学习笔记">
+<meta property="og:url" content="http://example.com/2022/02/06/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Matrix">
+<meta property="og:description" content="李宏毅老师机器学习课程（2021年春）的学习笔记，包含主要章节，内容为课程PPT截图和自己的理解。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219095831583.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219100016270.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219100428254.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219101300738.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219101655031.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219102000204.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219102731302.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219104151563.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219105458940.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219110721178.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219111631718.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144702545.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144724880.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144750389.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144818457.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144228852.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219150200017.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226095255307.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226095622007.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226100223801.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226100838277.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226101635125.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226103627068.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226104521228.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226152721549.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305095228597.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305100013570.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305101132847.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305101950989.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305102617152.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304151048684.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304151237287.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304152108674.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304172301142.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304171956704.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304173028115.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304180943944.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304183838764.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304184522127.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304185026358.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304185110591.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304190557637.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304195747683.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304192537204.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304200921052.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304201040170.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304202329150.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304202728017.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304203230620.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304203918686.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304204729094.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305123518774.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305130930902.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305131215231.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305131620782.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305205703268.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305211104452.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305211335213.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305212016666.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305214249299.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305214659025.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305220201491.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305220456370.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306202954096.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306204100610.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306205105544.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306205407765.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306211654172.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306212605014.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307084457898.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307085454470.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307090411780.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307132535147.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307170319309.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307171429680.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307172300787.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307175439487.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307180056391.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307182649445.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307184108270.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307185207573.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307185703230.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307190438053.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307190829890.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307202707341.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307204325435.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307204938059.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206131208929.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206150726048.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206141139594.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206142247906.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206142950404.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206143221507.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206143322912.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206143517207.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206144227208.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206145353016.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206153822231.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206153500456.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206160407290.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206161448785.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206162637988.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207101625127.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207104112714.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207103244168.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207103418169.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207104756579.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207111434058.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207111515565.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207111620784.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207112504850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207114753063.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207114533078.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207115000025.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207115218451.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207142245806.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207143746425.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207144725955.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207145158996.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207150805490.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207220702238.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208100050722.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208101039436.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208104635672.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208104705656.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208104836858.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208104553215.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211101254759.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211101644207.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211104048153.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211104846035.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211111348323.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211111954684.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211112737450.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211113708470.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211212929099.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211214407437.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211214839328.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211215733680.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212094837516.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212100118760.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212101910653.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212103249778.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212103155884.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212110525380.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212113335230.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212114059753.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212115529023.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212135600230.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213131020287.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213131803199.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213132522442.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213133725499.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213134620938.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213135213168.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213135908337.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213141030408.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213142535160.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213143200228.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213144222316.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213145806946.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213163917658.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213165121802.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213170442707.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213171953249.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213180605124.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213180940458.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213181857891.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213182358226.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213182415092.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213183158764.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213183849339.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218105500288.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218110858500.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218111628491.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218111906216.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218132036657.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218132139007.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218134841740.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218140348425.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218142514851.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218143243588.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218145723969.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218152711801.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218150937729.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218151412940.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218172407842.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218173647090.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218174118880.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218174355611.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218201306419.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218201745460.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218202359976.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218203829316.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218204228187.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218205453786.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218205759042.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218210348328.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218211505101.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218212128687.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218212739328.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218213131983.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218213504709.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218213825627.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218215343394.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218215729682.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218220937785.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218221706740.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218222201475.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218222614958.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218223001022.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218223329175.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218223545316.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218223847025.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218224310676.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218225010898.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218225744974.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218231232960.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218231124679.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218231910041.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218232114811.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218233137461.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218233436487.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218234826062.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218234514852.png">
+<meta property="article:published_time" content="2022-02-06T03:38:14.000Z">
+<meta property="article:modified_time" content="2022-06-20T13:45:44.024Z">
+<meta property="article:author" content="李旭">
+<meta property="article:tag" content="ML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219095831583.png">
+
+<link rel="canonical" href="http://example.com/2022/02/06/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>李宏毅机器学习笔记 | Matrix</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Matrix</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/06/%E6%9D%8E%E5%AE%8F%E6%AF%85%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="李旭">
+      <meta itemprop="description" content="学习记录。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Matrix">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          李宏毅机器学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-02-06 11:38:14" itemprop="dateCreated datePublished" datetime="2022-02-06T11:38:14+08:00">2022-02-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-06-20 21:45:44" itemprop="dateModified" datetime="2022-06-20T21:45:44+08:00">2022-06-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>李宏毅老师机器学习课程（2021年春）的学习笔记，包含主要章节，内容为课程PPT截图和自己的理解。</p>
+<span id="more"></span>
+
+<h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219095831583.png" alt="image-20220219095831583"></p>
+<p>定义一个函数用于拟合数据，其中w（weight）和b（bias）是需要学习的。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219100016270.png" alt="image-20220219100016270"></p>
+<p>确定学习目标，定义一个loss函数用来表示模型输出的结果和真实结果的差异，通过训练使loss越小越好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219100428254.png" alt="image-20220219100428254"></p>
+<p>使用梯度下降的方法优化模型参数，loss函数对每个参数做偏微分（计算梯度），让参数向梯度的反方向移动，最后找到一个最小值点，使loss最小。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219101300738.png" alt="image-20220219101300738"></p>
+<p>相比使用直线去拟合数据，sigmoid函数能够拟合更多形状的函数，而且拟合的效果更好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219101655031.png" alt="image-20220219101655031"></p>
+<p>在训练的时候不是让模型直接看所有数据，而是将数据分成许多batch，模型每看完一个batch的数据就更新一次参数，所有的batch都看完一遍称为一个epoch（即看完所有数据），在每个epoch中，batch的划分是不一样的，这个做法称为shuffle。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219102000204.png" alt="image-20220219102000204"></p>
+<p>用于拟合的函数称为激活函数，常用的除了Sigmoid还有ReLU。</p>
+<h1 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h1><h2 id="训练技巧"><a href="#训练技巧" class="headerlink" title="训练技巧"></a>训练技巧</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219102731302.png" alt="image-20220219102731302"></p>
+<p>如果loss太大，可能是模型太简单不能很好的拟合，也可能optimization做的不好，可以先训练一些小模型（容易optimization），如果更深的模型不能得到更小的loss就说明存在optimization的问题。</p>
+<p>如果在training data的loss小，在testing data的loss大，可能是遇到了overfitting的问题。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219104151563.png" alt="image-20220219104151563"></p>
+<p>等模型的灵活性高的时候，但是训练资料比较少的时候，模型可以拟合所有的训练资料，但是在没有训练资料的地方可能就比较随意，当使用模型没看过的资料测试时，资料可能就在拟合比较随意的位置，导致测试记过很差。一个解决方法是使用更多的训练资料，也可以做数据增强（原数据变换）。另一个方法是让模型能简单，减少模型的灵活性，比如减少参数或共用参数、更少的特征、提前结束、正则化、dropout（对于神经网络单元，按照一定的概率将其暂时从网络中丢弃）。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219105458940.png" alt="image-20220219105458940"></p>
+<p>模型越复杂training loss越低，当模型复杂到一定程度后，模型越复杂testing loss越高。</p>
+<h2 id="Local-Minima-and-Saddle-Point"><a href="#Local-Minima-and-Saddle-Point" class="headerlink" title="Local Minima and Saddle Point"></a>Local Minima and Saddle Point</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219110721178.png" alt="image-20220219110721178"></p>
+<p>当loss不再下降的时候可能卡在了局部最低点或者马鞍点，此处的梯度可能为0，但不是全局最低点。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219111631718.png" alt="image-20220219111631718"></p>
+<p>在θ处的loss可以通过泰勒公式展开，其中H是海森矩阵，如果H的所有特征值都为正则是局部最小值点，如果H的所有特征值都为负则是局部最大值点，如果H的所有特征值都有正有负则是马鞍点。实际中局部最小值很少出现，马鞍点居多，马鞍点可以找到使loss继续下降的方向。</p>
+<h2 id="Batch-and-Momentum"><a href="#Batch-and-Momentum" class="headerlink" title="Batch and Momentum"></a>Batch and Momentum</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144702545.png" alt="image-20220219144702545"></p>
+<p>小的batch一次update花费的时间少，但是一次epoch花费的时间多，大的batch一次epoch花费的时间反而更少。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144724880.png" alt="image-20220219144724880"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144750389.png" alt="image-20220219144750389"></p>
+<p>大的batch精度较低，因为在梯度下降的时候更容易卡住，而小的batch有更高的精度，因为有很多次update，当梯度下降在一个batch中卡住时，可能在下一个batch中又可以继续了。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144818457.png" alt="image-20220219144818457"></p>
+<p>小的batch在测试集上也有更好的表现。大的batch通常找到位于山谷的minima，而小的batch通常找到平原的minima，当在数据发生变化时（测试集上），山谷位置的变化会造成很大的偏差，而平原位置的移动造成的偏差比较小。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219144228852.png" alt="image-20220219144228852"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219150200017.png" alt="image-20220219150200017"></p>
+<p>加入momentum之后，在做梯度下降时不仅要考虑梯度，还要考虑让一步的移动，将两者结合作为下一步的移动，即使梯度是0，下一步可能还会继续移动，这样可以使梯度下降时更不容易卡在local minima或者saddle point，甚至翻过一个“小山”。</p>
+<h2 id="Learning-Rate"><a href="#Learning-Rate" class="headerlink" title="Learning Rate"></a>Learning Rate</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226095255307.png" alt="image-20220226095255307"></p>
+<p>当loss不再变小时，gradient可能并不是很小，这可能是因为学习率比较大，参数在最小值左右横跳。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226095622007.png" alt="image-20220226095622007"></p>
+<p>当lr（learning rate）比较大时参数会在最小值上下跳跃，找不到最小值。当lr比较小时，如果梯度比较大，可以顺利找到最小值所在区域，当梯度变小后，参数很难再移动，无法达到最小值。所以要使用动态学习率。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226100223801.png" alt="image-20220226100223801"></p>
+<p>当梯度大时使用小的lr，当梯度小时使用大的lr，在每个参数update时加入parameter dependent。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226100838277.png" alt="image-20220226100838277"></p>
+<p>Root Mean Square是通过之前的每个梯度来确定σ，梯度大时σ大，step小，梯度小时σ小，step大。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226101635125.png" alt="image-20220226101635125"></p>
+<p>RMSProp在计算σ时可以给之前的梯度和当前的梯度不同的权重，当前梯度的权重比较大时，如果梯度增加，σ就会增加，step就会迅速的减小，相比Root Mean Square反映更快。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226103627068.png" alt="image-20220226103627068"></p>
+<p>learning rate decay是一开始lr比较大，随着时间推移也更接近目标点，lr也慢慢变小。warm up是一开始lr比较小，因为一开始可能找不到方向，出于探索阶段，当探索进行lr变大，然后随着时间推移更接近目标点，lr再慢慢变小。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226104521228.png" alt="image-20220226104521228"></p>
+<p>最终的方法是同时使用Learning rate scheduling,root mean square,Momentum进行update。</p>
+<h2 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220226152721549.png" alt="image-20220226152721549"></p>
+<p>对于分类问题，Cross-entropy相比Mean Square Error更好，最小交叉熵就是最大似然估计。</p>
+<h2 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305095228597.png" alt="image-20220305095228597"></p>
+<p>当输入x1很小，输入x2很大时，更新w1对loss的影响很小，而更新w2对loss的影响很大，这就是左边图中的情况，为了更好训练，要把x1和x2的值调整到同一范围。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305100013570.png" alt="image-20220305100013570"></p>
+<p>计算所有输入对应位置的平均值和标准差，计算出新的值平均为零，区间大小都为1。标准化之后梯度下降收敛更快。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305101132847.png" alt="image-20220305101132847"></p>
+<p>当输入经过一层网络后，该层网络的输出又会变成不同的范围，所以为了更方便的训练可以对某一层网络的输出再做标准化。但是输入资料很大，不可能同时标准化所以数据，所以要使用batch normalization。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305101950989.png" alt="image-20220305101950989"></p>
+<p>在做batch normalization时，通常要在标准化的值后面再做变化，γ初始为1，β初始为0，然后在训练过程中模型自己调整，目的是让标准化后的值有更大的自由度，对训练来说是有好处的。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305102617152.png" alt="image-20220305102617152"></p>
+<p>在测试时可能会出现数据不够一个batch的情况，这时需要计算所有batch的平均μ和σ用来标准化当前数据，p通常设为0.1。</p>
+<h1 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304151048684.png" alt="image-20220304151048684"></p>
+<p>做图像识别时不需要看完整的图片，只需要看特定的部分就可以了</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304151237287.png" alt="image-20220304151237287"></p>
+<p>将图片一个区域的数据（receptive field）展开输入一个neuron，receptive field可以相同、重叠或形状不同。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304152108674.png" alt="image-20220304152108674"></p>
+<p>每个receptive field都有一组neuron负责，receptive field的大小为kernel size，涉及图片的所有channel，每次移动的距离为stride，要保证有重叠，当receptive field超出图片范围时进行padding（补0等），最后receptive field会覆盖整张图片。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304172301142.png" alt="image-20220304172301142"></p>
+<p>图像识别时，特征部分在图片中的位置可能不一样，所以每个位置都应该有识别特征的neuron，这样就要多次训练同一个neuron。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304171956704.png" alt="image-20220304171956704"></p>
+<p>为了解决上面的问题可以使不同区域识别同一特征的neuron共享参数。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304173028115.png" alt="image-20220304173028115"></p>
+<p>每个区域都有一组neuron，每一个neuron称为一个filter，区域1的filter1和区域2的filter1共享参数，区域1的filter2和区域2的filter2共享参数……也可以理解分别用多个filter扫遍整张图片。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304180943944.png" alt="image-20220304180943944"></p>
+<p>CNN在全连接的基础上加上了Receptive Field和参数共享，bias比较大但是不容易overfitting，因为专门为图像设计的所以依然表现很好，在其他领域效果可能不好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304183838764.png" alt="image-20220304183838764"></p>
+<p>一般在做完Convolution之后会加一个Pooling（以max pooling为例），选择2*2区域内最大的数代表该区域，可以使filter输出的“图像”变小更方便计算。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304184522127.png" alt="image-20220304184522127"></p>
+<p>完整的CNN在做完几轮Convolution和Pooling之后通过Flatten将数据拉直成一个向量，然后通过一个全连接网络输出结果。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304185026358.png" alt="image-20220304185026358"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304185110591.png" alt="image-20220304185110591"></p>
+<p>CNN不能处理放大缩小或选择的图片，训练时通常要使用数据增强。</p>
+<h1 id="Self-attention"><a href="#Self-attention" class="headerlink" title="Self-attention"></a>Self-attention</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304190557637.png" alt="image-20220304190557637"></p>
+<p>输入n个向量输出分三种：第一种是输出n个向量，比如词性分析、语音识别、推荐；第二种是输出1个向量，比如语义分析（正面反面）、说话人识别、毒性判断；第三种是模型自己决定输出几个向量，也叫seq2seq，比如机器翻译。以下讨论第一种情况。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304195747683.png" alt="image-20220304195747683"></p>
+<p>self-attention输出的每一个向量都考虑全部的输入向量，需要计算一个输入向量与其他向量的相关性，作为该位置输出的依据。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304192537204.png" alt="image-20220304192537204"></p>
+<p>计算相关性的方法以Dot-product为主，输出位置的输入向量乘上W<sup>q</sup>，其他位置的输入向量乘上<sup>k</sup>，分别得到q和k然后做点积计算出相关度α。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304200921052.png" alt="image-20220304200921052"></p>
+<p>算出所有的相关度α之后做一个soft-max得到α’。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304201040170.png" alt="image-20220304201040170"></p>
+<p>根据α’从所有的输入向量中提取信息作为输出。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304202329150.png" alt="image-20220304202329150"></p>
+<p>需要学习的只有W<sup>q</sup>，W<sup>k</sup>，W<sup>v</sup>。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304202728017.png" alt="image-20220304202728017"></p>
+<p>Multi-head Self-attention使用多个相关性，计算多个输出，然后乘一个矩阵变成一个输出。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304203230620.png" alt="image-20220304203230620"></p>
+<p>如果需要考虑位置信息，可以给每个输入向量都加上一个位置信息向量e，e可以人工设定也可以从数据中学习。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304203918686.png" alt="image-20220304203918686"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220304204729094.png" alt="image-20220304204729094"></p>
+<p>当把self-attention用到graph上时，可以通过节点的边来计算相关性，没有边的节点相关性就是0。</p>
+<h1 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305123518774.png" alt="image-20220305123518774"></p>
+<p>seq2seq可以用于语音识别、机器翻译、语音翻译、聊天机器人、QA、句子成分分析、多标签分类、目标识别等。seq2seq的模型分为encoder和decoder两部分，广为人知的是Transformer。</p>
+<h2 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305130930902.png" alt="image-20220305130930902"></p>
+<p>encoder输入n个向量输出n个向量。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305131215231.png" alt="image-20220305131215231"></p>
+<p>encoder中包含多个block，每个block都是一个self-attention模型。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305131620782.png" alt="image-20220305131620782"></p>
+<p>transformer encoder的block 是在self-attention（multi-head）的基础上将输入加到输出上（residual）然后做标准化（layer norm），然后将全连接层的输入加到输出上做标准化作为最后的输出。transformer在encoder之前还要加上位置编码（positional encoding）。</p>
+<h2 id="Decoder（Autoregressive）"><a href="#Decoder（Autoregressive）" class="headerlink" title="Decoder（Autoregressive）"></a>Decoder（Autoregressive）</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305205703268.png" alt="image-20220305205703268"></p>
+<p>以语音识别为例，假设encoder的输出已经输入到decoder。首先输入一个开始的标志，然后对decoder的输出做softmax得到一个所有文字概率的向量，最后一个元素为结束符号，然后做max得到输出的字，将输出的字作为输入再输入decoder，以此类推。模型要自己判断什么时候停下，当输出为结束符号时停止。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305211104452.png" alt="image-20220305211104452"></p>
+<p>在结构上如果不看中间部分，Decoder比Encode只是下面部分的Multi-Head Attention变成了Masked Multi-Head Attention。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305211335213.png" alt="image-20220305211335213"></p>
+<p>Masked Self-attention在计算输出时只能考虑该输入和之前的输入，不能考虑全部的输入。</p>
+<h2 id="Decoder（non-Autoregressive）"><a href="#Decoder（non-Autoregressive）" class="headerlink" title="Decoder（non-Autoregressive）"></a>Decoder（non-Autoregressive）</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305212016666.png" alt="image-20220305212016666"></p>
+<p>NAT的输入全为开始标记，一次性完成输出。可以通过另一个模型来预测输出的长度，也可以用一个很长的输入，看哪里输出结束标记，结束标记之后的输出就不要了。相比AT的decoder，NAT的速度更快，而且更容易控制输出的长度，但是表现较差。</p>
+<h2 id="Encoder-Decoder"><a href="#Encoder-Decoder" class="headerlink" title="Encoder-Decoder"></a>Encoder-Decoder</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305214249299.png" alt="image-20220305214249299"></p>
+<p>decoder的中间部分叫做Cross attention用来结合encoder的输出和Masked Multi-Head Attention（简称MMA）的输出。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305214659025.png" alt="image-20220305214659025"></p>
+<p>Cross attention的过程和self-attention类似，将encoder的输出分别乘上矩阵W<sup>k</sup>和W<sup>v</sup>得到k和v，然后将MMA的输出乘上矩阵W<sup>q</sup>得到q，通过q和k计算出相关性与v相乘，然后将所有相乘后的结果相加作为输出v，然后再经过一个全连接网络。</p>
+<h2 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305220201491.png" alt="image-20220305220201491"></p>
+<p>与做分类问题类似，Decoder输出的向量（每个字的概率）与Ground Truth越接近越好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220305220456370.png" alt="image-20220305220456370"></p>
+<p>训练时将Ground Truth作为开始标记后的输入，这种方法叫做Teacher Forcing。</p>
+<h1 id="GAN"><a href="#GAN" class="headerlink" title="GAN"></a>GAN</h1><h2 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a>Generator</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306202954096.png" alt="image-20220306202954096"></p>
+<p>给网络输入时再从一个已知的分布中sample出一个数值一起输入网络，同一个输入经过多次加上sample，网络的输出也会变成一个分布。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306204100610.png" alt="image-20220306204100610"></p>
+<p>同一个输入，当输出没有标准答案时（需要一点创造力），几种情况都对就是不能同时是这些情况，所以要加入随机变量使输出是一个分布。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306205105544.png" alt="image-20220306205105544"></p>
+<p>Unconditional generation是只将一个标准化的分布作为输出，输入的向量是低维的，而网络输出的向量是高维的。</p>
+<h2 id="Discriminator"><a href="#Discriminator" class="headerlink" title="Discriminator"></a>Discriminator</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306205407765.png" alt="image-20220306205407765"></p>
+<p>Discriminator用来给generator的输出打分，输出越真实分数越高，越假分数越低。</p>
+<h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306211654172.png" alt="image-20220306211654172"></p>
+<p>首先初始化Generator（G）和Discriminator（D）。第一步固定G，让G生成一些内容，同时选择一些真实的内容，然后告诉D哪些是G生成的，哪些是真实的内容，用来训练D的辨别能力（类似于训练分类器）。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220306212605014.png" alt="image-20220306212605014"></p>
+<p>第二步固定D，调整G的参数使D的输出越大越好。然后反复训练G和D。</p>
+<h2 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307084457898.png" alt="image-20220307084457898"></p>
+<p>GAN的目标是输入一个规则分布，使产生的分布PG与真实数据的分布Pdata越接近越好，通过计算PG和Pdata的差异判断接近程度。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307085454470.png" alt="image-20220307085454470"></p>
+<p>使用PG和Pdata训练D时，PG的数据给低分，Pdata的数据给高分，使目标函数的值越大越好，训练出来的目标函数的最大值就能表示PG和Pdata的差异。也可以使用其他的目标函数。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307090411780.png" alt="image-20220307090411780"></p>
+<p>当PG和Pdate的差异很小时，D很难区分出差异，目标函数的最大值就会很小，当PG和Pdate的差异很大时，D就会很容易区分差异，目标函数的最大值就会很大。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307132535147.png" alt="image-20220307132535147"></p>
+<p>G的训练目标就变成了找一个G让maxV(G,D)最小。</p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307170319309.png" alt="image-20220307170319309"></p>
+<p>其实JS divergence并不适合，因为PG和Pdata重叠的部分很少，一是图像在高维空间的区间很小，即使有交集也可以忽略，二是即使PG和Pdata有交集，也要有足够的sample，不然还是没有重叠。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307171429680.png" alt="image-20220307171429680"></p>
+<p>用JS计算差异，如果两个分布重叠就是0，不重叠就横是log2，不能反映差异的程度。如果两个分布不重叠，binary classifier通过记忆的方式就能得到100%的准确率，但这对GAN的训练是没意义的。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307172300787.png" alt="image-20220307172300787"></p>
+<p>Wasserstein distance（WD）是将分布P变成分布Q所要移动的最小距离。相比JS，WD可以表示差异的程度。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307175439487.png" alt="image-20220307175439487"></p>
+<p>WGAN就是用WD计算PG和Pdata的差异，目标函数要足够平滑，不然训练时会给PG负无穷，Pdata正无穷导致无法收敛。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307180056391.png" alt="image-20220307180056391"></p>
+<p>找足够平滑的函数的方法有三种：Original WGAN是设定边界值，超出边界值后就设为边界值；Improved WGAN是在PG和Pdata的sample之间找一个梯度接近于1的sample；Spectral Normalization能让D是一个真正的1-Lipschitz，效果最好。</p>
+<h2 id="GAN-for-Sequence-Generation"><a href="#GAN-for-Sequence-Generation" class="headerlink" title="GAN for Sequence Generation"></a>GAN for Sequence Generation</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307182649445.png" alt="image-20220307182649445"></p>
+<p>如果用GAN产生一段文字，Decoder输出的向量要做max，所以Decoder参数的变化可能不会引起最大的元素的变化，因此Discriminator的分数不会变化，这样就不能使用梯度下降进行训练。</p>
+<h2 id="Evaluate"><a href="#Evaluate" class="headerlink" title="Evaluate"></a>Evaluate</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307184108270.png" alt="image-20220307184108270"></p>
+<p>可以将生成的图像输入一个图像分类器，如果类别分布越集中就说明生成的图像越好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307185207573.png" alt="image-20220307185207573"></p>
+<p>向图像分类器输入多张图片，如果所以图片平均后的类别分布越平均就说明多样性越好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307185703230.png" alt="image-20220307185703230"></p>
+<p>当生成图像都是一种类别时，可以取出softmax之前的向量（假设是Gaussians分布），然后计算与真实图片Gaussians的差距。</p>
+<h2 id="Conditional-GAN"><a href="#Conditional-GAN" class="headerlink" title="Conditional GAN"></a>Conditional GAN</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307190438053.png" alt="image-20220307190438053"></p>
+<p>在Generator生成时加上限制。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307190829890.png" alt="image-20220307190829890"></p>
+<p>在训练D时也要输出限制条件，只有G生成的图片真实并且符合条件时才给高分。训练资料要有满足条件并且真实的图片、不满足要求也不真实的图片和不满足要求但是真实的图片（成对资料）。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307202707341.png" alt="image-20220307202707341"></p>
+<p>用图片当做限制条件就可以做图像转换的任务，只用GAN生成的图片会出现一些现实中不存在的情况，可以同时使用GAN和supervised，让G生成的图片既能骗过D，又和标准答案越接近越好。限制条件还可以是声音，G根据声音生成一个图像。</p>
+<h2 id="Cycle-GAN"><a href="#Cycle-GAN" class="headerlink" title="Cycle GAN"></a>Cycle GAN</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307204325435.png" alt="image-20220307204325435"></p>
+<p>适用于没有成对输入输出资料的情况，无监督无条件。把从高斯分布中sample变成从一组图片中sample一张图片，G产生的图片D要判断与输出的资料是否相似，为了保证G产生的图片是个输入有关系的，G产生的图片还要经过另一个G产生一个图像与最开始的输入越接近越好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220307204938059.png" alt="image-20220307204938059"></p>
+<p>同理，可以做X domain到Y domain的转换，也可以做Y domain到X domain的转换，两个方向同时训练就是Cycle GAN。</p>
+<h1 id="Self-supervised-Learning"><a href="#Self-supervised-Learning" class="headerlink" title="Self-supervised Learning"></a>Self-supervised Learning</h1><p>将没有标签的资料分成输入和标签</p>
+<h2 id="BERT"><a href="#BERT" class="headerlink" title="BERT"></a>BERT</h2><p>网络结构是Transformer的Encoder，输入一串数据输出一串数据。</p>
+<h3 id="训练-1"><a href="#训练-1" class="headerlink" title="训练"></a>训练</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206131208929.png" alt="image-20220206131208929"></p>
+<p>将输入数据中的某个数据（可以多个吗？）盖住，可以用一个固定的标记代替，也可以用一个随机的数据代替（可以同时使用固定标记和随机数据吗？）。然后单独把被盖住数据的输出向量变成一个一维向量，即各种数据的概率（分类问题），通过softmax函数选择概率最大的数据。输入中被盖住的数据事先是知道的，故将其作为Ground truth（标准值），通过减小模型输出和Ground truth的cross entropy训练模型。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206150726048.png" alt="image-20220206150726048"></p>
+<p>输入两个句子，中间用[SEP]分割，句子前面放一个固定的符号[CLS]，仅关注[CLS]的输出向量，判断两个句子是否相接，这种方法实际的用处不大。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206141139594.png" alt="image-20220206141139594"></p>
+<p>BERT是一个基础模型，预训练后的BERT可以作为其他模型的基础，通过Fine-tune（微调）可以用于更多下游任务（下游任务可能有少量标签，称为Semi-supervised）。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206142247906.png" alt="image-20220206142247906"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206142950404.png" alt="image-20220206142950404"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206143221507.png" alt="image-20220206143221507"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206143322912.png" alt="image-20220206143322912"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206143517207.png" alt="image-20220206143517207"></p>
+<p>输入文章D和问题Q，模型输出答案在文章中的位置（两个正整数，表示答案的开始位置和结束位置）</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206144227208.png" alt="image-20220206144227208"></p>
+<p>使用两个随机向量，橙色用于计算开始的位置，蓝色用于计算结束的位置，将文章D的输出向量分别与两个随机向量做内积，然后通过Softmax输出，其中数值最大的向量所在位置就是答案的起始位置或结束位置。</p>
+<h3 id="Pre-training-a-seq2seq-model"><a href="#Pre-training-a-seq2seq-model" class="headerlink" title="Pre-training a seq2seq model"></a>Pre-training a seq2seq model</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206145353016.png" alt="image-20220206145353016"></p>
+<p>将输入的数据弄坏，然后将模型输出的数据与原始数据比较，通过训练使模型能还原弄坏的数据。</p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206153822231.png" alt="image-20220206153822231"></p>
+<p>BERT的输出的向量就是输入的词的embedding，代表词在向量空间的位置，相同意思的词在向量空间中更接近，词相同但是意思不同，距离也会比较远。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206153500456.png" alt="image-20220206153500456"></p>
+<p>BERT会考虑上下文的信息，相当于一个更复杂的word embedding。</p>
+<h3 id="Multi-BERT"><a href="#Multi-BERT" class="headerlink" title="Multi-BERT"></a>Multi-BERT</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206160407290.png" alt="image-20220206160407290"></p>
+<p>同时使用104种语言对BERT进行预训练，比如Fine-tune使用英文训练，可以直接用于中文任务。实际上中英文相同意思的词的embedding之间存在固定的距离，中文加上这个距离就是英文。</p>
+<h2 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h2><h3 id="训练-2"><a href="#训练-2" class="headerlink" title="训练"></a>训练</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206161448785.png" alt="image-20220206161448785"></p>
+<p>根据前面的token预测下一个token，先输入开始标志BOS，模型预测第一个token，然后根据BOS和第一个token预测第二个token，以此类推。GPT的模型和Transformer类似，但是预测使不会使用后面的token。</p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220206162637988.png" alt="image-20220206162637988"></p>
+<p>输入任务描述和例子（也可以不输入例子），不经过梯度下降直接回答问题，平均正确率在60%以下。</p>
+<h2 id="Auto-encoder"><a href="#Auto-encoder" class="headerlink" title="Auto-encoder"></a>Auto-encoder</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207101625127.png" alt="image-20220207101625127"></p>
+<h3 id="训练-3"><a href="#训练-3" class="headerlink" title="训练"></a>训练</h3><p>类似于Cycle GAN。输入一张图片，通过Encoder输出一个低维向量，然后将该向量输入Decoder，输出一个图片。通过训练使输入图片和输出图片差距越小越好，训练好的模型作为下游任务的基础。</p>
+<h3 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h3><p>Encoder输出的向量可以看做是图像的Embedding，同时完成了数据从高维到低位的转换（降维），低维向量作为新的图像特征更利于做下游任务。</p>
+<h3 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207104112714.png" alt="image-20220207104112714"></p>
+<p>虽然像素点的排列有很多种，但是表示出来是图像的种类比较少，Encoder就是找出所有的图片种类，然后给他们编号。比如3X3的图像只有两种像素排列情况，Encoder只需要用两位就可以表示。</p>
+<h3 id="De-noising-Auto-encoder"><a href="#De-noising-Auto-encoder" class="headerlink" title="De-noising Auto-encoder"></a>De-noising Auto-encoder</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207103244168.png" alt="image-20220207103244168"></p>
+<p>将原始图像加噪音后再输入Encoder，最后Decoder输出的图像与原始图像进行比较，降低差距。通过这种方法可以使网络具有还原受损图像的能力。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207103418169.png" alt="image-20220207103418169"></p>
+<p>BERT也是一种De-noising Auto-encoder，对输入遮盖是加噪音，BERT是Encoder，输出的向量是Embedding，线性模型和softmax是Decoder。对于其他结构BERT，也可以将Embedding之前看做Encoder，之后看做Decoder。</p>
+<h3 id="Feature-Disentangle"><a href="#Feature-Disentangle" class="headerlink" title="Feature Disentangle"></a>Feature Disentangle</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207104756579.png" alt="image-20220207104756579"></p>
+<p>Encoder输出的Embedding可能包含很多种类的信息，Feature Disentangle就是分辨Embedding中的各向量代表什么信息。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207111434058.png" alt="image-20220207111434058"></p>
+<p>声音转换：将不同人不同内容的声音输入Encoder，通过Feature Disentagle技术分辨出输出的向量代表文字和声音特征的部分，然后将要说的文字和说话人的声音特征合在一起输入Decoder，输出的结果就是转换后的声音。</p>
+<h3 id="Discrete-Latent-Representation-离散潜在表示"><a href="#Discrete-Latent-Representation-离散潜在表示" class="headerlink" title="Discrete Latent Representation(离散潜在表示)"></a>Discrete Latent Representation(离散潜在表示)</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207111515565.png" alt="image-20220207111515565"></p>
+<p>Encoder输出的向量的值可以用其他数据表示。比如用Binary（0、1）表示是否具有某个特征，用One-hot表示识别出的数字，可以使Embedding更具有解释性</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207111620784.png" alt="image-20220207111620784"></p>
+<p>Encoder输出的向量与固定的一组向量（Codebook）计算相似度，选择最相似的一个固定向量输入Decoder。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207112504850.png" alt="image-20220207112504850"></p>
+<p>输入一篇文章，Encoder产生一段文字（可以理解为摘要），然后将这段文字输入Decoder还原的文章，是一个Seq2seq2seq的模型。但是中间产生的文字人类是看不懂的，可以理解为Encoder和Decoder之间的”暗号“，所以要加入一个Discriminator，用于辨别人类写的文字和Encoder生成的文字，使Encoder生成的文字变得可读。</p>
+<h3 id="其他应用"><a href="#其他应用" class="headerlink" title="其他应用"></a>其他应用</h3><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207114753063.png" alt="image-20220207114753063"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207114533078.png" alt="image-20220207114533078"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207115000025.png" alt="image-20220207115000025"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207115218451.png" alt="image-20220207115218451"></p>
+<p>异常检测往往只有正常样本，而没有或很少有异常样本，用Auto-encoder就可以解决这个问题。因为输入正常样本进行训练，所以当Auto-encoder见到正常样本中没有的输入时就会判断为异常。</p>
+<h1 id="Adversarial-Attack"><a href="#Adversarial-Attack" class="headerlink" title="Adversarial Attack"></a>Adversarial Attack</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207142245806.png" alt="image-20220207142245806"></p>
+<p>在网络参数固定的前提下，找到一张和原图片很接近的图片（人类无法察觉）。无目标攻击的目标是使网络的答案离正确答案越远越好，目标攻击是使网络的答案离正确答案远的同时离目标答案近。无目标攻击的损失函数是负的Cross-entropy，目标攻击的损失函数是负的和正确答案的Cross-entropy加上和目标答案的Cross-entropy。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207143746425.png" alt="image-20220207143746425"></p>
+<p>原始图片和攻击图片的差距通过L2-norm或L-infinity来计算，相比之下L-infinity更能反映出人类能感知的变化。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207144725955.png" alt="image-20220207144725955"></p>
+<p>找攻击图片与训练网络相比只是把调整网络参数改成了调整输入，使用原图作为初始图片，通过梯度下降不断更新攻击图片，当攻击图片和原始图片的差距超过ε（人类不能感知的最大值）时，将两者差距调整为ε并结束训练。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207145158996.png" alt="image-20220207145158996"></p>
+<p>FGSM对梯度做sign，使梯度只有正负1，ε作为学习率，并且只做一次梯度下降，攻击图片和原始图片的差距必然是ε。也可以用同样的方法做多次训练，当攻击图片和原始图片的差距超过ε时，将两者差距调整为ε并结束训练。</p>
+<h2 id="Black-Box-Attack"><a href="#Black-Box-Attack" class="headerlink" title="Black Box Attack"></a>Black Box Attack</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207150805490.png" alt="image-20220207150805490"></p>
+<p>黑盒攻击就是在不知道网络参数的情况下进行攻击，核心思想是训练一个代理（Proxy）网络，在该网络上进行攻击图片训练，训练好的图片对真实的网络也会产生攻击效果。如果知道网络的训练数据可以直接训练代理网络，如果不知道，可以将任意图片输入真实网络并保存其输出，形成一对数据并重复多次，使用产生的成对数据训练代理网络。</p>
+<p>网络识别用到的特征在高维空间中的区域往往很小，使其稍微偏移可能就会攻击成功，同时对一个网络有效的攻击对其他网络可能也有效。攻击方法还有One pixel attack（在图像上增加一个错误像素点）、Universal Adversarial Attack（使用一个通用的方法，对所以图片的攻击都有效）。除了图像攻击还有语音处理和自然语音处理方面的攻击。</p>
+<h2 id="物理世界攻击"><a href="#物理世界攻击" class="headerlink" title="物理世界攻击"></a>物理世界攻击</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220207220702238.png" alt="image-20220207220702238"></p>
+<h2 id="Adversarial-Reprogramming"><a href="#Adversarial-Reprogramming" class="headerlink" title="Adversarial Reprogramming"></a>Adversarial Reprogramming</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208100050722.png" alt="image-20220208100050722"></p>
+<p>通过使用别人的网络来达到自己的目的，比如想让网络根据输入的方块个数输出对应的信息，做法是给方块图片加上杂讯（攻击程序），然后输入别人的网络，网络就会输出对应的信息。</p>
+<h2 id="“Backdoor”-in-Model"><a href="#“Backdoor”-in-Model" class="headerlink" title="“Backdoor” in Model"></a>“Backdoor” in Model</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208101039436.png" alt="image-20220208101039436"></p>
+<p>在训练的时候加入特殊的数据，人无法识别，但是会影响模型的判断，训练好的模型一遇到这个特殊数据就会出错，但是对其他数据的识别都是正常的，所以也很被难发现。</p>
+<h2 id="Defense"><a href="#Defense" class="headerlink" title="Defense"></a>Defense</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208104635672.png" alt="image-20220208104635672"></p>
+<p>最简单的方法是在图片输入模型之前做一个过滤（最简单的就是模糊），这样可能就会使攻击信号失效，同时会造成识别准确性的下降。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208104705656.png" alt="image-20220208104705656"></p>
+<p>还可以通过图片压缩和使用Generator的方法做过滤。Generator的方法是现将图片输入Generator，然后将Generator生成的图片输入模型，Generator再生成过程中可能会忽略一些攻击信号。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208104836858.png" alt="image-20220208104836858"></p>
+<p>如果攻击者知道了过滤的方法，那么防御就会失效。通过对图片做随机的变换和选择可以一定程度避免这个问题，但是不排除有攻击方法对所有的随机变换图片都有效。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220208104553215.png" alt="image-20220208104553215"></p>
+<p>主动防御是在训练过程中就加强模型的防御能力，本质是做数据增强。先用正常数据训练网络，然后找到所有数据的攻击数据，再使用正常数据和攻击数据训练网络，如此往复。当遇到新的攻击算法，但是训练过程中没有使用这个算法生成攻击数据，模型的防御可能会失效。</p>
+<h1 id="Explainable-ML"><a href="#Explainable-ML" class="headerlink" title="Explainable ML"></a>Explainable ML</h1><h2 id="为什么需要Explainable-ML"><a href="#为什么需要Explainable-ML" class="headerlink" title="为什么需要Explainable ML"></a>为什么需要Explainable ML</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211101254759.png" alt="image-20220211101254759"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211101644207.png" alt="image-20220211101644207"></p>
+<h2 id="Local-Explaination"><a href="#Local-Explaination" class="headerlink" title="Local Explaination"></a>Local Explaination</h2><p>“为什么这个是猫？”</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211104048153.png" alt="image-20220211104048153"></p>
+<p>删除或修改图片的某个部分，看模型的输出的变化，如果发生巨大变化则说明这个部分是模型识别的重要部分。下图为遮挡移动的某个位置的识别概率，红色表示识别好，蓝色表示识别差，可以看出模型是通过识别目标的特征做判断。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211104846035.png" alt="image-20220211104846035"></p>
+<p>将图像的某个像素加上△x，然后计算模型误差的变化△e，△e和△x的比较越大说明这个像素对模型识别越重要，表示在图上就是更亮的点。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211111348323.png" alt="image-20220211111348323"></p>
+<p>直接做Saliency可能会出现一些干扰，不能突出目标特征，这是可以使用SmoothGrad。随机给输入图片做多种杂讯，得到多种saliency maps，然后取maps的平均值，会更加突出目标特征。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211111954684.png" alt="image-20220211111954684"></p>
+<p>当目标特征的变化不在增加模型准确性的时候，Gradient的方法就不能反映特征变化的部分。比如当大象的鼻子增加到x长之后，模型识别出大象的准确度不会再增加，这时超过x长的部分可能不会在saliency maps中显示，但实际是重要的特征。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211112737450.png" alt="image-20220211112737450"></p>
+<p>直接观察模型每层的输出，将多维向量转换成二位向量再观察。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211113708470.png" alt="image-20220211113708470"></p>
+<p>将某一层网络输出的embedding输入一个probe模型，然后将probe模型输出结果与模型输入比较，就可以知道模型的embedding之前的网络都做了什么。</p>
+<h2 id="Global-Explaination"><a href="#Global-Explaination" class="headerlink" title="Global Explaination"></a>Global Explaination</h2><p>“什么样的是猫？”</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211212929099.png" alt="image-20220211212929099"></p>
+<p>在卷积网络中，图片经过一个filter就会产生一个map，map里数值大的位置就表示这个filter识别的内容，想知道一个filter识别什么内容，就需要找到一个图片X使filter生成的map值最大，可以使用gradient ascent的方法。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211214407437.png" alt="image-20220211214407437"></p>
+<p>但是找到的X可能是一些杂讯，根本看不出特征（如之前的Adersarial Attack）,这时候就要在找X时做限制，比如尽量减少白点的数量，限制之后可能可以发现一些特征。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211214839328.png" alt="image-20220211214839328"></p>
+<p>也可以通过Generator对X进行限制，Generator的输入是低维向量，输出是图片，将Generator放到分类器前面，找到一个向量z使分类器的输出最大，然后将该向量z通过Generator生成一个图片，观察这个图片的特征。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220211215733680.png" alt="image-20220211215733680"></p>
+<p>线性模型相比神经网络更容易介绍，可以设计一个线性模型，使其输出和神经网络的输出越小越好，这样就可以用对线性模型的解释代替对神经网络的解释。但是线性模型的能力有限，神经网络能做的线性模型不一定能做，所以这种方法更适合去解释神经网络的局部。</p>
+<h1 id="Domain-Adaptation"><a href="#Domain-Adaptation" class="headerlink" title="Domain Adaptation"></a>Domain Adaptation</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212094837516.png" alt="image-20220212094837516"></p>
+<p>当训练资料和测试资料的分布不同时，模型的准确率会下降。分布不同的可以是输入、输出各结果的概率、输入输出的对应关系。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212100118760.png" alt="image-20220212100118760"></p>
+<p>当target domain有标注时可以将其放入网络训练，由于数据少要小心过拟合，大部分情况是有大量未标注数据，这时可以通过Feature Extractor提取不同domain相同的feature，使用feature进行训练，这样识别不同domain的效果就一样了。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212101910653.png" alt="image-20220212101910653"></p>
+<p>Feature Extractor的训练需要使用Domain Classifier（用来判断是哪个domain），Feature Extractor要做的就是让Lable Predictor效果更好，Domain Classifier效果更差。如果让θf中取-Ld，会让Domain Classifier把一个domain分类成另一个domain，反而分类效果变好了，不过这样做还是有效果的。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212103249778.png" alt="image-20220212103249778"></p>
+<p>source domain和target domain中的类别可能不一样，这时就需要Universal domain adaptation的方法（不展开）。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212103155884.png" alt="image-20220212103155884"></p>
+<p>以上都是在有大量target domain数据的情况下，也可能target domain数据很少或者没有，这时根据训练资料分为两种情况。当训练资料很丰富且包含多个domain，这样可以让模型学习不同domain的区别，然后将模型用在新的domain上。当训练资料只有一个domain，而测速资料有多个domain时，可以考虑使用类似于数据增强的方法。</p>
+<h1 id="增强式学习"><a href="#增强式学习" class="headerlink" title="增强式学习"></a>增强式学习</h1><h2 id="What-is-RL"><a href="#What-is-RL" class="headerlink" title="What is RL"></a>What is RL</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212110525380.png" alt="image-20220212110525380"></p>
+<p>RL中有Actor和Environment，Actor将观察到的Environment作为输出，然后输出作用到Environment上的动作，Environment会告诉Actor动作的结果，Actor的目标就是找到一个时结果最好的策略。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212113335230.png" alt="image-20220212113335230"></p>
+<p>注意：输出的action是随机sample的</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212114059753.png" alt="image-20220212114059753"></p>
+<p>actor接收observation输出active，然后得到一个reward，重复这个过程直到结束，从开始到结束称为一个episode，一个episode可以计算一个Total reward，actor的目标就是让Total reward最大。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212115529023.png" alt="image-20220212115529023"></p>
+<p>难点是输出的action是随机sample的，并且Environment和reward都是黑箱，还有随机性。</p>
+<h2 id="Policy-Gradient"><a href="#Policy-Gradient" class="headerlink" title="Policy Gradient"></a>Policy Gradient</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220212135600230.png" alt="image-20220212135600230"></p>
+<p>s表示输入环境信息，a^表示action的ground truth，A后面的数值表示想要执行A的程度，怎么确定A呢？</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213131020287.png" alt="image-20220213131020287"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213131803199.png" alt="image-20220213131803199"></p>
+<p>先随机确定一个Actor然后输入s让其输出a形成一对数据，直接用reward的值表示A。但是每个action不是独立的，会影响接下来发生的事，而且有时需要牺牲当前的reward来换取长句更好的reward，如果某个action在当前有好的reward，那么actor就会一直执行这个action。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213132522442.png" alt="image-20220213132522442"></p>
+<p>根据action后的所有reward作为当前action的A，用G表示cumulated reward，这样就能解决version0的问题。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213133725499.png" alt="image-20220213133725499"></p>
+<p>当a1和an隔得越远的时候，a1对an的影响就越小，就算rn很大也不都是a1的功劳，所以要对r1之后的reward都加上权重（&lt;1），使后面的r对A的贡献越来越小。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213134620938.png" alt="image-20220213134620938"></p>
+<p>reward的好和坏是相对的，一个模型中可能所有reward都是正的，模型就可能去做相对差的action，因此要对A做标准化，最简单的方法就算所有的G’都减去一个b（baseline），让A有正有负。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213135213168.png" alt="image-20220213135213168"></p>
+<p>训练时每update一次就要搜集一次资料，因为当前actor收集的资料不一定适合更新后的actor。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213135908337.png" alt="image-20220213135908337"></p>
+<p>On-policy是训练的actor和交互的actor是同一个，比如上面的的情况。Off-policy是训练的actor和交互的actor不是同一个，这样做的好处是训练的actor可以向其他的actor学习，不用每次update都搜集资料。Off-policy的思想就是让训练的actor知道自己和交互的actor的差别（PPO）。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213141030408.png" alt="image-20220213141030408"></p>
+<p>当手机资料的时候要增加Actor的随机性，不然有些action没出现过，也不会知道reward的好坏，当action不足时模型可能训练不起来。</p>
+<h2 id="Actor-Critic"><a href="#Actor-Critic" class="headerlink" title="Actor-Critic"></a>Actor-Critic</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213142535160.png" alt="image-20220213142535160"></p>
+<p>Critic是根据actor要观察的s（或者加上输出action）来评估actor能做多好。Value function就是在观察到s时评估当前actor的discounted cumulated reward，无需等到一个episode结束。怎么训练Critic呢？</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213143200228.png" alt="image-20220213143200228"></p>
+<p>MC的方法是得到一个actor观察到的s和一个episode结束后的cumulated reward（G‘），将s作为Value function的输入，使Value function的输出和G’越接近越好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213144222316.png" alt="image-20220213144222316"></p>
+<p>TD的方法仅通过一次action就能获得一笔资料。V(s)表示s的cumulated reward，可以发现V(St)&#x3D;γV(St+1)+rt，所以向Value function输出St和St+1使V(St)-γV(St+1)与rt越接近越好。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213145806946.png" alt="image-20220213145806946"></p>
+<p>MC和TD的计算可能会存在差别。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213163917658.png" alt="image-20220213163917658"></p>
+<p>A的标准化方法改为用G’-V(s)，V(s)表示输入s所有可能产生的action的平均值，G’为输出action的discounted cumulated reward，当A&gt;0时表示该action比平均水平好，当A&lt;0时表示该action比平均水平差。但是G‘只表示执行该action完成episode后的一个结果，再次执行可能会出现不同的结果。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213165121802.png" alt="image-20220213165121802"></p>
+<p>再次优化，用采取该action后的期望值(或者说是平均值，公式为rt+V(St+1))减去不采用该action的期望值(V(St))表示A，如果rt+V(St+1)比较大说明该action比随便sample的一个action好，反之亦然。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213170442707.png" alt="image-20220213170442707"></p>
+<p>训练时actor和critic可以共用前面基层网络。</p>
+<h2 id="Reward-Shaping"><a href="#Reward-Shaping" class="headerlink" title="Reward Shaping"></a>Reward Shaping</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213171953249.png" alt="image-20220213171953249"></p>
+<p>在一些场景下（比如下棋、拧螺丝）会有很多的reward为0，这时就没法判断action的好坏了。reward shaping就是产生一些额外的reward来指引actor。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213180605124.png" alt="image-20220213180605124"></p>
+<h2 id="No-Reward：Learning-from-Demonstration"><a href="#No-Reward：Learning-from-Demonstration" class="headerlink" title="No Reward：Learning from Demonstration"></a>No Reward：Learning from Demonstration</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213180940458.png" alt="image-20220213180940458"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213181857891.png" alt="image-20220213181857891"></p>
+<p>当没有reward的时候，可以记录人类专家和环境的互动，通过示范让机器学习。（手把手教学）</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213182358226.png" alt="image-20220213182358226"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213182415092.png" alt="image-20220213182415092"></p>
+<p>如果拿人类专家的示范做有监督学习（也就是模仿人类行为），由于示范中是没有错误示范的，当agent遇到错误时就不会处理。在训练过程中即使是无关的行为agent也会模仿，但是agent的能力也是有限的，可能只会选择部分行为进行模仿，这是就可能只学会无关的行为。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213183158764.png" alt="image-20220213183158764"></p>
+<p>使用人类专家的示范和环境找到一个reward function，然后再用这个reward function去训练actor。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213183849339.png" alt="image-20220213183849339"></p>
+<p>找到一个reward function给人类专家的行为高分，给actor的行为低分，然后根据这个reward function去更新actor，使actor得到的分变高，同时reward function根据人类高分、actor低分的原则继续更新。这里的Actor相当于GAN中的Generator，Reward function相当于GAN中的Discriminator。</p>
+<h1 id="机器终身学习"><a href="#机器终身学习" class="headerlink" title="机器终身学习"></a>机器终身学习</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218105500288.png" alt="image-20220218105500288"></p>
+<p>模型根据反馈的信息继续进行学习，但是当模型学会新任务之后，之前任务的准确率会下降，但是同时学新旧任务不会出现这个问题。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218110858500.png" alt="image-20220218110858500"></p>
+<p>如果每次学习一个新任务就要使用之前所有任务的资料一起训练（Multi-task training），就要求一直存着这钱的数据，而且学习的任务越多数据量会越大，随着数据量增大，计算也会产生问题，但是可以用Multi-task training作为LLL性能的上限。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218111628491.png" alt="image-20220218111628491"></p>
+<p>如果每个任务都使用一个模型，那么模型会非常的多，变得难以存储，而且不同的任务的资料直接不能互相学习。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218111906216.png" alt="image-20220218111906216"></p>
+<p>Transfer更关注之后的任务，LLL在关注之后任务的同时也不能忘了之前的任务。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218132036657.png" alt="image-20220218132036657"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218132139007.png" alt="image-20220218132139007"></p>
+<p>i表示已经训练了第几个任务，j表示在第j个任务测试集上的精度，当i&gt;j时表示在之前训练的任务上的精度，当i&lt;j时表示在还未训练的任务上的精度。计算模型精度可以在最后一个任务的训练后计算在每个任务的平均精度，也可以使用Backward Transfer的方法，计算最后一次训练之后和刚训练完任务i时的精度差，表示随着后面训练的进行，前面任务精度的下降程度。Forward Transfer是用某任务训练前在该任务测试集上的精度减去该任务测试集上的初始精度，表示在还没训练该任务之前，机器已经学习到了什么程度。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218134841740.png" alt="image-20220218134841740"></p>
+<p>蓝色越深表示精度越高，初始的θ<sup>0</sup>在训练完任务1之后得到θ<sup>b</sup>，θ<sup>b</sup>在训练完任务2之后得到θ<sup>*</sup>，这时再将θ<sup>*</sup>放到任务1中就会使精度下降。</p>
+<h2 id="Selective-Synaptic-Plasticity"><a href="#Selective-Synaptic-Plasticity" class="headerlink" title="Selective Synaptic Plasticity"></a>Selective Synaptic Plasticity</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218140348425.png" alt="image-20220218140348425"></p>
+<p>有些参数对之前的任务来说是重要的，所以在训练新任务的时候要尽量保持这些参数不变，只改变那些不重要的参数。θ<sup>b</sup>表示之前模型的参数，b<sub>i</sub>表示θ<sup>b</sup>中第i个参数$θ^b_i$的重要程度，在降低当前任务los的同时要让之前重要参数的变化尽可能小。当b<del>i</del>为0时相当于没有限制，当b<del>i</del>无穷大时会影响对新任务的学习。怎么确定b呢？</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218142514851.png" alt="image-20220218142514851"></p>
+<p>在训练完一个任务之后试着改变θ^i^如果精度变化小b<del>i</del>就设小一点，如果精度变化大b<del>i</del>就设大一点。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218143243588.png" alt="image-20220218143243588"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218145723969.png" alt="image-20220218145723969"></p>
+<p>GEM的方法是根据之前任务的梯度和当前任务的梯度，找到一个新的梯度，使其与之前梯度的内积≥0，并且与新的梯度不能相差太多，因此需要存储之前任务的梯度数据。</p>
+<h2 id="Additional-Neural-Resource-Allocation"><a href="#Additional-Neural-Resource-Allocation" class="headerlink" title="Additional Neural Resource Allocation"></a>Additional Neural Resource Allocation</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218152711801.png" alt="image-20220218152711801"></p>
+<p>当一个任务训练好之后参数就不再改了，用新的网络训练新的任务，然后将训练得到的参数额外加到之前的网络。单这样做会使模型越来越大。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218150937729.png" alt="image-20220218150937729"></p>
+<p>PackNet是一开始就是用一个参数较多的网络，每个任务训练时使用其中的部分参数。CPG是既可以使用网络的部分参数，也可以增加网络的参数。</p>
+<h2 id="Memeroy-Reply"><a href="#Memeroy-Reply" class="headerlink" title="Memeroy Reply"></a>Memeroy Reply</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218151412940.png" alt="image-20220218151412940"></p>
+<p>使用一个Generation生成任务的资料，下一个任务根据前一个任务生成的资料和该任务的训练数据进行训练，同时Generation生成当前任务和之前任务的资料。</p>
+<h1 id="网络压缩"><a href="#网络压缩" class="headerlink" title="网络压缩"></a>网络压缩</h1><h2 id="Network-Pruning"><a href="#Network-Pruning" class="headerlink" title="Network Pruning"></a>Network Pruning</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218172407842.png" alt="image-20220218172407842"></p>
+<p>首先评估网络的参数和神经元的重要性，然后移除不太重要的部分，这时网络的精度可能会有所下降，可以重新训练一下网络，如果网络不够小就再跳到评估部分。不要一次删减太多，网络可能无法工作。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218173647090.png" alt="image-20220218173647090"></p>
+<p>weight pruning的方法会使网络变得不对称，实际操作比较困难（通常是补0），而且不能使用GPU加速。虽然可以使网络变小90%以上，但是速度反而变慢了。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218174118880.png" alt="image-20220218174118880"></p>
+<p>neuron pruning后的的网络还是规则的，更方便进行实现和使用硬件加速。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218174355611.png" alt="image-20220218174355611"></p>
+<p>训练大的网络比训练小的网络更容易成功，所以先训练大的网络再进行剪枝。大乐透假说是说训练网络就像买彩票，小的网络买的少，大的网络买的多，所以大的网络更容易成功，有研究表明可能只有小学习率和unstructured（weight pruning）的时候大乐透假说才有效。</p>
+<h2 id="Knowledge-Distillation"><a href="#Knowledge-Distillation" class="headerlink" title="Knowledge Distillation"></a>Knowledge Distillation</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218201306419.png" alt="image-20220218201306419"></p>
+<p>使用一个大的网络作为Teacher Net，一个小的网络作为Student Net，像两个网络输入同样的数据，让Student Net的输出与Teacher Net的输出越接近越好，即使是Student Net没见过的输入，只要Teacher Net可以识别，Student Net就能学会。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218201745460.png" alt="image-20220218201745460"></p>
+<p>Ensemble是同时使用多种网络，将所有网络输出的平均作为输出，这样一来网络会变得非常庞大，也可以使用Knowledge Distillation的方法训练一个小的网络，到达相似的结果。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218202359976.png" alt="image-20220218202359976"></p>
+<p>softmax的结果可能会比较集中，这样student net可能无法学习到为什么是这个结果（与直接看正确答案没区别），所以要让teacher net的输出变得平滑一点，将softmax函数中的每个输入都除以T即可。</p>
+<h2 id="Parameter-Quantization"><a href="#Parameter-Quantization" class="headerlink" title="Parameter Quantization"></a>Parameter Quantization</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218203829316.png" alt="image-20220218203829316"></p>
+<p>通过压缩参数的存储空间来压缩模型，可以用更少的bits表示参数（牺牲部分精度），也可以给参数分类，一类参数用一个参数表示，还可以使用霍夫曼编码，让经常使用的参数占用更少的存储空间。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218204228187.png" alt="image-20220218204228187"></p>
+<p>Binary Weights是使参数只有1和-1，每个参数只用一位就可以表示，网络的结果也不一定差。</p>
+<h2 id="Architecture-Design"><a href="#Architecture-Design" class="headerlink" title="Architecture Design"></a>Architecture Design</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218205453786.png" alt="image-20220218205453786"></p>
+<p>与CNN的不同是filter的个数与输入的channel数相同，而且每个filter只关注一层，输出的channel数和输入相同，但是channel之间没有联系。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218205759042.png" alt="image-20220218205759042"></p>
+<p>然后使用pointwise convolution建立channel间的联系的联系，使用1*1的filter，filter的channel数与输入相同。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218210348328.png" alt="image-20220218210348328"></p>
+<p>depthwise convolution加point convolution的参数个数只是CNN的kernel size分之一。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218211505101.png" alt="image-20220218211505101"></p>
+<p>当输入个数为N，输出个数为M时，网络W的参数为M*N，如果再加一层网络，使第一层网络的输出个数为K，这时网络V和U的参数总和为，N*K+K*M，当K&lt;M,N时，网络的参数就会变少。缺点是不能表示W中所有的可能性。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218212128687.png" alt="image-20220218212128687"></p>
+<p>DSC就是用和Low rank approximation同样的思想，将一步拆为两部。</p>
+<h2 id="Dynamic-Computation"><a href="#Dynamic-Computation" class="headerlink" title="Dynamic Computation"></a>Dynamic Computation</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218212739328.png" alt="image-20220218212739328"></p>
+<p>让网络根据不同设备，设备不同状态动态调整计算量。为什么不准备一些列模型应对不同情况呢？因为会占用太多内存。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218213131983.png" alt="image-20220218213131983"></p>
+<p>让网络自己决定深度（从哪一层输出），计算每一层后输出与ground truth的差，将所有的差加起来作为loss，做梯度下降。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218213504709.png" alt="image-20220218213504709"></p>
+<p>让网络自己决定每一层网络的宽度，计算每一种宽度的输出与ground truth的差，将所有的差加起来作为loss，做梯度下降。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218213825627.png" alt="image-20220218213825627"></p>
+<p>让网络根据任务的难以选着网络的深度。</p>
+<h1 id="元学习（learn-to-learn）"><a href="#元学习（learn-to-learn）" class="headerlink" title="元学习（learn to learn）"></a>元学习（learn to learn）</h1><h2 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218215343394.png" alt="image-20220218215343394"></p>
+<p>将训练数据作为输入，实现的功能作为输出，中间学习的方法通常都是人定的，mate learn就是让机器学习这个学习的方法。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218215729682.png" alt="image-20220218215729682"></p>
+<p>用Φ表示可学习的component，让机器去决定Φ。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218220937785.png" alt="image-20220218220937785"></p>
+<p>计算使用当前Φ训练出来的网络，在某项任务中，对于测试集作出的判断与ground truth之间的loss，将所有任务的loss相加作为L(Φ)。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218221706740.png" alt="image-20220218221706740"></p>
+<p>目的是让L(Φ)最小，如果可以计算偏微分可以使用梯度下降的方法，如果无法计算可以使RL找个一个Φ。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218222201475.png" alt="image-20220218222201475"></p>
+<p>通过训练任务来学习一个Learning Algorithm（F(Φ*)），然后用测试任务来测试Learning Algorithm。</p>
+<h2 id="Machine-Learning-v-s-Mate-Learning"><a href="#Machine-Learning-v-s-Mate-Learning" class="headerlink" title="Machine Learning v.s Mate Learning"></a>Machine Learning v.s Mate Learning</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218222614958.png" alt="image-20220218222614958"></p>
+<p>Machine Learning是找一个函数f，输入图片输出类别，Mate Learning是找一个学习方法F，输入训练数据输出f。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218223001022.png" alt="image-20220218223001022"></p>
+<p>Machine Learning的训练数据是一个任务中的多种训练数据，Mate Learning的训练数据是多个任务的训练资料（Support set）和测试资料（Query set）。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218223329175.png" alt="image-20220218223329175"></p>
+<p>Machine Learning是在一个任务内训练，Mate Learning是跨任务训练。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218223545316.png" alt="image-20220218223545316"></p>
+<p>Machine Learning是在一个任务内测试，Mate Learning是用训练中没有的任务做跨任务测试。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218223847025.png" alt="image-20220218223847025"></p>
+<p>Machine Learning用一个任务中的训练数据算loss，Mate Learning用多个任务中的测试数据算loss并相加。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218224310676.png" alt="image-20220218224310676"></p>
+<p>一次跨任务训练（mate learning训练）包含一次单任务训练和一次单任务测试。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218225010898.png" alt="image-20220218225010898"></p>
+<p>Develpoment task相当于验证集。</p>
+<h2 id="What-is-learnable"><a href="#What-is-learnable" class="headerlink" title="What is learnable"></a>What is learnable</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218225744974.png" alt="image-20220218225744974"></p>
+<p>学习初始化参数。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218231232960.png" alt="image-20220218231232960"></p>
+<p>学习Optimizer，学习梯度下降的方法。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218231124679.png" alt="image-20220218231124679"></p>
+<p>学习网络架构，由于不能计算，可以使用RL或者EL，也可以把网络结构改成可以微分的形式（DARTS）。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218231910041.png" alt="image-20220218231910041"></p>
+<p>学习数据增强。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218232114811.png" alt="image-20220218232114811"></p>
+<p>学习给不同的samples分配不同的权重。</p>
+<h2 id="Outlook"><a href="#Outlook" class="headerlink" title="Outlook"></a>Outlook</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218233137461.png" alt="image-20220218233137461"></p>
+<p>不使用梯度下降，让网络根据Φ直接输出f的θ*。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218233436487.png" alt="image-20220218233436487"></p>
+<p>将训练资料和测试资料同时输入网络，网络直接输出测试资料的结果。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218234826062.png" alt="image-20220218234826062"></p>
+<p>少样本分类问题，way表示类别，shot表示每个类别中的样本个数。</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218234514852.png" alt="image-20220218234514852"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ML/" rel="tag"># ML</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/06/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E6%8A%80%E6%9C%AF%E7%BB%BC%E8%BF%B0/" rel="prev" title="推荐系统技术综述">
+      <i class="fa fa-chevron-left"></i> 推荐系统技术综述
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/21/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%BB%BC%E8%BF%B0%E5%8F%8AKRAN%E5%8E%9F%E7%90%86/" rel="next" title="推荐系统综述及KRAN原理">
+      推荐系统综述及KRAN原理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">2.</span> <span class="nav-text">训练</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%8A%80%E5%B7%A7"><span class="nav-number">2.1.</span> <span class="nav-text">训练技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-Minima-and-Saddle-Point"><span class="nav-number">2.2.</span> <span class="nav-text">Local Minima and Saddle Point</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-and-Momentum"><span class="nav-number">2.3.</span> <span class="nav-text">Batch and Momentum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Learning-Rate"><span class="nav-number">2.4.</span> <span class="nav-text">Learning Rate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Loss"><span class="nav-number">2.5.</span> <span class="nav-text">Loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">2.6.</span> <span class="nav-text">Batch Normalization</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN"><span class="nav-number">3.</span> <span class="nav-text">CNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Self-attention"><span class="nav-number">4.</span> <span class="nav-text">Self-attention</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Transformer"><span class="nav-number">5.</span> <span class="nav-text">Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Encoder"><span class="nav-number">5.1.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decoder%EF%BC%88Autoregressive%EF%BC%89"><span class="nav-number">5.2.</span> <span class="nav-text">Decoder（Autoregressive）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decoder%EF%BC%88non-Autoregressive%EF%BC%89"><span class="nav-number">5.3.</span> <span class="nav-text">Decoder（non-Autoregressive）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encoder-Decoder"><span class="nav-number">5.4.</span> <span class="nav-text">Encoder-Decoder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Training"><span class="nav-number">5.5.</span> <span class="nav-text">Training</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GAN"><span class="nav-number">6.</span> <span class="nav-text">GAN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Generator"><span class="nav-number">6.1.</span> <span class="nav-text">Generator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Discriminator"><span class="nav-number">6.2.</span> <span class="nav-text">Discriminator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm"><span class="nav-number">6.3.</span> <span class="nav-text">Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">6.4.</span> <span class="nav-text">理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tips"><span class="nav-number">6.5.</span> <span class="nav-text">Tips</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GAN-for-Sequence-Generation"><span class="nav-number">6.6.</span> <span class="nav-text">GAN for Sequence Generation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluate"><span class="nav-number">6.7.</span> <span class="nav-text">Evaluate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conditional-GAN"><span class="nav-number">6.8.</span> <span class="nav-text">Conditional GAN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cycle-GAN"><span class="nav-number">6.9.</span> <span class="nav-text">Cycle GAN</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Self-supervised-Learning"><span class="nav-number">7.</span> <span class="nav-text">Self-supervised Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BERT"><span class="nav-number">7.1.</span> <span class="nav-text">BERT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83-1"><span class="nav-number">7.1.1.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">7.1.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pre-training-a-seq2seq-model"><span class="nav-number">7.1.3.</span> <span class="nav-text">Pre-training a seq2seq model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">7.1.4.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multi-BERT"><span class="nav-number">7.1.5.</span> <span class="nav-text">Multi-BERT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT"><span class="nav-number">7.2.</span> <span class="nav-text">GPT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83-2"><span class="nav-number">7.2.1.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="nav-number">7.2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Auto-encoder"><span class="nav-number">7.3.</span> <span class="nav-text">Auto-encoder</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83-3"><span class="nav-number">7.3.1.</span> <span class="nav-text">训练</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-2"><span class="nav-number">7.3.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-1"><span class="nav-number">7.3.3.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#De-noising-Auto-encoder"><span class="nav-number">7.3.4.</span> <span class="nav-text">De-noising Auto-encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Feature-Disentangle"><span class="nav-number">7.3.5.</span> <span class="nav-text">Feature Disentangle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Discrete-Latent-Representation-%E7%A6%BB%E6%95%A3%E6%BD%9C%E5%9C%A8%E8%A1%A8%E7%A4%BA"><span class="nav-number">7.3.6.</span> <span class="nav-text">Discrete Latent Representation(离散潜在表示)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8"><span class="nav-number">7.3.7.</span> <span class="nav-text">其他应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Adversarial-Attack"><span class="nav-number">8.</span> <span class="nav-text">Adversarial Attack</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">8.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">8.2.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Black-Box-Attack"><span class="nav-number">8.3.</span> <span class="nav-text">Black Box Attack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E4%B8%96%E7%95%8C%E6%94%BB%E5%87%BB"><span class="nav-number">8.4.</span> <span class="nav-text">物理世界攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adversarial-Reprogramming"><span class="nav-number">8.5.</span> <span class="nav-text">Adversarial Reprogramming</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9CBackdoor%E2%80%9D-in-Model"><span class="nav-number">8.6.</span> <span class="nav-text">“Backdoor” in Model</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Defense"><span class="nav-number">8.7.</span> <span class="nav-text">Defense</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Explainable-ML"><span class="nav-number">9.</span> <span class="nav-text">Explainable ML</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Explainable-ML"><span class="nav-number">9.1.</span> <span class="nav-text">为什么需要Explainable ML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-Explaination"><span class="nav-number">9.2.</span> <span class="nav-text">Local Explaination</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Global-Explaination"><span class="nav-number">9.3.</span> <span class="nav-text">Global Explaination</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Domain-Adaptation"><span class="nav-number">10.</span> <span class="nav-text">Domain Adaptation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A2%9E%E5%BC%BA%E5%BC%8F%E5%AD%A6%E4%B9%A0"><span class="nav-number">11.</span> <span class="nav-text">增强式学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-RL"><span class="nav-number">11.1.</span> <span class="nav-text">What is RL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Policy-Gradient"><span class="nav-number">11.2.</span> <span class="nav-text">Policy Gradient</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Actor-Critic"><span class="nav-number">11.3.</span> <span class="nav-text">Actor-Critic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reward-Shaping"><span class="nav-number">11.4.</span> <span class="nav-text">Reward Shaping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#No-Reward%EF%BC%9ALearning-from-Demonstration"><span class="nav-number">11.5.</span> <span class="nav-text">No Reward：Learning from Demonstration</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E7%BB%88%E8%BA%AB%E5%AD%A6%E4%B9%A0"><span class="nav-number">12.</span> <span class="nav-text">机器终身学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">12.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selective-Synaptic-Plasticity"><span class="nav-number">12.2.</span> <span class="nav-text">Selective Synaptic Plasticity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Additional-Neural-Resource-Allocation"><span class="nav-number">12.3.</span> <span class="nav-text">Additional Neural Resource Allocation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Memeroy-Reply"><span class="nav-number">12.4.</span> <span class="nav-text">Memeroy Reply</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8E%8B%E7%BC%A9"><span class="nav-number">13.</span> <span class="nav-text">网络压缩</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Network-Pruning"><span class="nav-number">13.1.</span> <span class="nav-text">Network Pruning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Knowledge-Distillation"><span class="nav-number">13.2.</span> <span class="nav-text">Knowledge Distillation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parameter-Quantization"><span class="nav-number">13.3.</span> <span class="nav-text">Parameter Quantization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Architecture-Design"><span class="nav-number">13.4.</span> <span class="nav-text">Architecture Design</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Computation"><span class="nav-number">13.5.</span> <span class="nav-text">Dynamic Computation</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%83%E5%AD%A6%E4%B9%A0%EF%BC%88learn-to-learn%EF%BC%89"><span class="nav-number">14.</span> <span class="nav-text">元学习（learn to learn）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="nav-number">14.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Machine-Learning-v-s-Mate-Learning"><span class="nav-number">14.2.</span> <span class="nav-text">Machine Learning v.s Mate Learning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-learnable"><span class="nav-number">14.3.</span> <span class="nav-text">What is learnable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Outlook"><span class="nav-number">14.4.</span> <span class="nav-text">Outlook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">14.5.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李旭"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">李旭</p>
+  <div class="site-description" itemprop="description">学习记录。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/EverestLi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;EverestLi" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李旭</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
