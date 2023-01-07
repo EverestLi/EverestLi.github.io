@@ -450,6 +450,7 @@
       
         <p>李宏毅老师机器学习课程（2021年春）的学习笔记，包含主要章节，内容为课程PPT截图和自己的理解。</p>
 <span id="more"></span>
+
 <h1 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219095831583.png" alt="image-20220219095831583"></p>
 <p>定义一个函数用于拟合数据，其中w（weight）和b（bias）是需要学习的。</p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220219100016270.png" alt="image-20220219100016270"></p>
@@ -761,7 +762,7 @@
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213143200228.png" alt="image-20220213143200228"></p>
 <p>MC的方法是得到一个actor观察到的s和一个episode结束后的cumulated reward（G‘），将s作为Value function的输入，使Value function的输出和G’越接近越好。</p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213144222316.png" alt="image-20220213144222316"></p>
-<p>TD的方法仅通过一次action就能获得一笔资料。V(s)表示s的cumulated reward，可以发现V(St)=γV(St+1)+rt，所以向Value function输出St和St+1使V(St)-γV(St+1)与rt越接近越好。</p>
+<p>TD的方法仅通过一次action就能获得一笔资料。V(s)表示s的cumulated reward，可以发现V(St)&#x3D;γV(St+1)+rt，所以向Value function输出St和St+1使V(St)-γV(St+1)与rt越接近越好。</p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213145806946.png" alt="image-20220213145806946"></p>
 <p>MC和TD的计算可能会存在差别。</p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213163917658.png" alt="image-20220213163917658"></p>
@@ -797,9 +798,9 @@
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218134841740.png" alt="image-20220218134841740"></p>
 <p>蓝色越深表示精度越高，初始的θ<sup>0</sup>在训练完任务1之后得到θ<sup>b</sup>，θ<sup>b</sup>在训练完任务2之后得到θ<sup>*</sup>，这时再将θ<sup>*</sup>放到任务1中就会使精度下降。</p>
 <h2 id="Selective-Synaptic-Plasticity"><a href="#Selective-Synaptic-Plasticity" class="headerlink" title="Selective Synaptic Plasticity"></a>Selective Synaptic Plasticity</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218140348425.png" alt="image-20220218140348425"></p>
-<p>有些参数对之前的任务来说是重要的，所以在训练新任务的时候要尽量保持这些参数不变，只改变那些不重要的参数。θ<sup>b</sup>表示之前模型的参数，b<sub>i</sub>表示θ<sup>b</sup>中第i个参数$θ^b_i$的重要程度，在降低当前任务los的同时要让之前重要参数的变化尽可能小。当b~i~为0时相当于没有限制，当b~i~无穷大时会影响对新任务的学习。怎么确定b呢？</p>
+<p>有些参数对之前的任务来说是重要的，所以在训练新任务的时候要尽量保持这些参数不变，只改变那些不重要的参数。θ<sup>b</sup>表示之前模型的参数，b<sub>i</sub>表示θ<sup>b</sup>中第i个参数$θ^b_i$的重要程度，在降低当前任务los的同时要让之前重要参数的变化尽可能小。当b<del>i</del>为0时相当于没有限制，当b<del>i</del>无穷大时会影响对新任务的学习。怎么确定b呢？</p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218142514851.png" alt="image-20220218142514851"></p>
-<p>在训练完一个任务之后试着改变θ^i^如果精度变化小b~i~就设小一点，如果精度变化大b~i~就设大一点。</p>
+<p>在训练完一个任务之后试着改变θ^i^如果精度变化小b<del>i</del>就设小一点，如果精度变化大b<del>i</del>就设大一点。</p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218143243588.png" alt="image-20220218143243588"></p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218145723969.png" alt="image-20220218145723969"></p>
 <p>GEM的方法是根据之前任务的梯度和当前任务的梯度，找到一个新的梯度，使其与之前梯度的内积≥0，并且与新的梯度不能相差太多，因此需要存储之前任务的梯度数据。</p>
@@ -834,7 +835,7 @@
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218210348328.png" alt="image-20220218210348328"></p>
 <p>depthwise convolution加point convolution的参数个数只是CNN的kernel size分之一。</p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218211505101.png" alt="image-20220218211505101"></p>
-<p>当输入个数为N，输出个数为M时，网络W的参数为M<em>N，如果再加一层网络，使第一层网络的输出个数为K，这时网络V和U的参数总和为，N\</em>K+K*M，当K&lt;M,N时，网络的参数就会变少。缺点是不能表示W中所有的可能性。</p>
+<p>当输入个数为N，输出个数为M时，网络W的参数为M*N，如果再加一层网络，使第一层网络的输出个数为K，这时网络V和U的参数总和为，N*K+K*M，当K&lt;M,N时，网络的参数就会变少。缺点是不能表示W中所有的可能性。</p>
 <p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218212128687.png" alt="image-20220218212128687"></p>
 <p>DSC就是用和Low rank approximation同样的思想，将一步拆为两部。</p>
 <h2 id="Dynamic-Computation"><a href="#Dynamic-Computation" class="headerlink" title="Dynamic Computation"></a>Dynamic Computation</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220218212739328.png" alt="image-20220218212739328"></p>
@@ -985,20 +986,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1030,7 +1031,7 @@
 <div class="copyright">
   
   &copy; 2021 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

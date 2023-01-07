@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205009371.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205118612.png">
-<meta property="og:image" content="http://example.com/2021/12/29/images/目标检测简介/image-20211229134750999.png">
+<meta property="og:image" content="http://example.com/images/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%80%E4%BB%8B/image-20211229134750999.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210018455.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210034267.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213210044896.png">
@@ -233,6 +233,7 @@
       
         <p>图像合成课程小组作业的个人部分，包括目标检测的发展、数据集和评价指标、常用算法总结、不足及发展方向和应用。</p>
 <span id="more"></span>
+
 <h1 id="什么是目标检测"><a href="#什么是目标检测" class="headerlink" title="什么是目标检测"></a>什么是目标检测</h1><p>目标检测是计算机视觉的一个基本任务，是实例分割、目标跟踪等的基础，目的是标出图像中的物体并进行分类，应用有行人检测、人脸识别、文字识别等。目标检测研究的目标是提高检测的准确率和速度。</p>
 <h1 id="目标检测历史"><a href="#目标检测历史" class="headerlink" title="目标检测历史"></a>目标检测历史</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205009371.png" alt="image-20220213205009371"></p>
 <p>2014年以前属于传统目标检测时期，2014年以后属于深度学习目标检测时期</p>
@@ -250,13 +251,13 @@
 <p>YOLO使用一个网络同时完成区域分割和概率计算，随后提出v2，v3版本，大大提高了检测的速度。相比两阶段的方法，对于小目标的定位精度较低。</p>
 <p>SSD提出了多参数和多分辨率检测技术，提高了单阶段检测的精度。</p>
 <p>RetinaNet提出焦点损失，让网络在训练中更关注困难、分类错误的例子，使单阶段检测有了接近两阶段检测的精度，同时有很快的速度。</p>
-<h2 id="Anchor-Based-Free"><a href="#Anchor-Based-Free" class="headerlink" title="Anchor Based/Free"></a>Anchor Based/Free</h2><p>根据是否使用Anchor，也就是否有候选框又可以分为 “Anchor Based”和“Anchor Free”，Anchor Based的方法是目前使用较多的，存在干扰信息较多、Anchor设置麻烦、计算量大等问题，Anchor Free的方法则为了解决这些问题，提出了“关键点”、“目标边缘”等取代Box。</p>
+<h2 id="Anchor-Based-x2F-Free"><a href="#Anchor-Based-x2F-Free" class="headerlink" title="Anchor Based&#x2F;Free"></a>Anchor Based&#x2F;Free</h2><p>根据是否使用Anchor，也就是否有候选框又可以分为 “Anchor Based”和“Anchor Free”，Anchor Based的方法是目前使用较多的，存在干扰信息较多、Anchor设置麻烦、计算量大等问题，Anchor Free的方法则为了解决这些问题，提出了“关键点”、“目标边缘”等取代Box。</p>
 <h1 id="目标检测数据集和评价指标"><a href="#目标检测数据集和评价指标" class="headerlink" title="目标检测数据集和评价指标"></a>目标检测数据集和评价指标</h1><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220213205118612.png" alt="image-20220213205118612"></p>
 <p>Pascal VOC在2005年至2012年间展开，每年举行一次，为图像识别和分类提供了一整套标准化的优秀的数据集，是衡量图像分类识别能力的基准。分为VOC07和VOC12，对象分为20个类别，VOC07包含5k多张训练图片和12000多标注的对象，VOC12包含11k多张训练图片和27k多标注的对象。</p>
 <p>ImageNet是世界上图像识别最大的数据库，包含超过1400万的图像和超过2万个分类。从2010年到2017年每年举行一次ILSVRC竞赛，会从ImageNet数据集中抽出部分样本，包含200个类别，图片数量和标注的对象比VOC大两个数量级，ILSVRC-14包含517k图片和534k标注对象，旨在追踪2005年建立的规模较小的PASCAL VOC挑战。</p>
 <p>MS-COCO由微软开发维护，包含91个常见对象类别，其中82个类别具有超过5k个标记实例。数据集包含328k个图像，总共有2500k个标记实例。相比ILSVRC的类别少但是有更多的实例，MS-COCO-17在80个分类中有164k图片和897k标注对象，并且使用图像分割，增加目标位置的精度。相比VOC和ILSVRC，MS-COCO有更多的小目标和密集目标，更加接近真实世界。</p>
 <p>Open Image是一个非常大的数据集，有600个类别，包含1910k图片和15440k标注的图框。</p>
-<p><img src="../images/目标检测简介/image-20211229134750999.png" alt="image-20211229134750999"></p>
+<p><img src="/../images/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%AE%80%E4%BB%8B/image-20211229134750999.png" alt="image-20211229134750999"></p>
 <h2 id="评价指标"><a href="#评价指标" class="headerlink" title="评价指标"></a>评价指标</h2><p>精确率：预测的正样本中有多少是真正的正样本</p>
 <p>召回率：样本中的正例有多少被预测正确了</p>
 <p>AP：一个类别在不同召回率下的平均精确率</p>
@@ -271,8 +272,7 @@
 <p>SENet：主要为了提升模型对channel特征的敏感性，只需要增加较少的计算量就可以带来性能的提升。</p>
 <h2 id="无滑窗"><a href="#无滑窗" class="headerlink" title="无滑窗"></a>无滑窗</h2><p>子区域搜索：一是将检测视为一个路径规划过程，画出一个标准的框。二是将检测视为一个迭代更新过程，来预测边界的点。</p>
 <p>关键点定位：目标框可以由两个点确定，所以目标检测任务等价于确定两个点的问题。优点是可以在语义分割框架下实现。</p>
-<h1 id="算法总结"><a href="#算法总结" class="headerlink" title="算法总结"></a>算法总结</h1><div class="table-container">
-<table>
+<h1 id="算法总结"><a href="#算法总结" class="headerlink" title="算法总结"></a>算法总结</h1><table>
 <thead>
 <tr>
 <th><strong>Method</strong></th>
@@ -282,8 +282,7 @@
 <th><strong>highlights</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>YOLO-V1</strong></td>
 <td>VGG16</td>
 <td>2016</td>
@@ -374,10 +373,7 @@
 <td>CVPR</td>
 <td>解决了注意力偏差和特征选择问题</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="table-container">
+</tbody></table>
 <table>
 <thead>
 <tr>
@@ -388,8 +384,7 @@
 <th><strong>Dateset</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>YOLOv4</strong></td>
 <td>CSPDarknet-53</td>
 <td>41.2</td>
@@ -417,10 +412,7 @@
 <td></td>
 <td>COCO</td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="table-container">
+</tbody></table>
 <table>
 <thead>
 <tr>
@@ -431,8 +423,7 @@
 <th><strong>Dateset</strong></th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>YOLO</strong></td>
 <td>VGG16</td>
 <td>57.9</td>
@@ -481,9 +472,7 @@
 <td></td>
 <td>VOC07</td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <h1 id="不足及发展方向"><a href="#不足及发展方向" class="headerlink" title="不足及发展方向"></a>不足及发展方向</h1><h2 id="模型复杂，算力要求高"><a href="#模型复杂，算力要求高" class="headerlink" title="模型复杂，算力要求高"></a>模型复杂，算力要求高</h2><p>目前神经网络模型在移动端部署还很困难，工业界使用目标识别的主要目的是替代传统的人工，提高生产效率，降低生产成本。在保证精度的前提下如果对硬件算力要求太高，会大大增加生产的成本，可能会阻碍技术的落地。因此模型在保证精度的同时，还需要速度快。学术界致力于研究高精度的轻量化网络架构，而工业界则致力于从硬件的角度出发，开发模型压缩与量化技术来提高模型运算速度。近年来出现的加速技术轻量化网络设计、模型压缩与量化、模型数值加速可能是解决该问题的重要方向。</p>
 <h2 id="小目标检测性能差"><a href="#小目标检测性能差" class="headerlink" title="小目标检测性能差"></a>小目标检测性能差</h2><p>在场景图像中检测小目标一直是目标检测领域长期以来所面临的一个挑战，小目标检测可以用于利用遥感图像统计野生动物的数量、检测军事目标的状态等，为了提高小目标检测性能可以考虑提高输入图像的分辨率、自动学习模型anchors、过滤掉无关的类别等方法。当大目标和小目标同时存在时又会产生新的问题，具有较大感受野的网络能够捕获更大尺度的上下文信息，而具备较小感受野的网络可能更专注于图像的局部细节。高分辨率的特征有利于检测小物体，由于感受野较小缺乏一定的语义信息，因此不利于检测大尺寸物体，而为了增大感受野最直接的办法是引入池化层，但这会导致特征的分辨率降低而不利于检测小物体。因此引入注意力机制和特征融合策略可能是一个研究方向。</p>
 <h2 id="依赖数据集"><a href="#依赖数据集" class="headerlink" title="依赖数据集"></a>依赖数据集</h2><p>基于深度学习检测算法的训练通常依赖于大量高质量标注的图像数据集，而标准过程通常比较耗时且效率低下。运用弱监督目标检测技术，可以使检测算法使用部分边界框标注的数据集进行训练，因此弱监督技术对于降低人力成本和提高检测灵活性非常重要。</p>
@@ -581,7 +570,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">1.</span> <span class="nav-text">什么是目标检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%8E%86%E5%8F%B2"><span class="nav-number">2.</span> <span class="nav-text">目标检测历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">2.1.</span> <span class="nav-text">传统目标检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5CNN"><span class="nav-number">2.2.</span> <span class="nav-text">两阶段CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E9%98%B6%E6%AE%B5CNN"><span class="nav-number">2.3.</span> <span class="nav-text">单阶段CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anchor-Based-Free"><span class="nav-number">2.4.</span> <span class="nav-text">Anchor Based&#x2F;Free</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">目标检测数据集和评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">3.2.</span> <span class="nav-text">评价指标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-number">4.</span> <span class="nav-text">目标检测的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%A8%E5%B9%B2%E7%BD%91%E7%BB%9C"><span class="nav-number">4.1.</span> <span class="nav-text">骨干网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%BB%91%E7%AA%97"><span class="nav-number">4.2.</span> <span class="nav-text">无滑窗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">算法总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3%E5%8F%8A%E5%8F%91%E5%B1%95%E6%96%B9%E5%90%91"><span class="nav-number">6.</span> <span class="nav-text">不足及发展方向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%EF%BC%8C%E7%AE%97%E5%8A%9B%E8%A6%81%E6%B1%82%E9%AB%98"><span class="nav-number">6.1.</span> <span class="nav-text">模型复杂，算力要求高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E5%B7%AE"><span class="nav-number">6.2.</span> <span class="nav-text">小目标检测性能差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">6.3.</span> <span class="nav-text">依赖数据集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E4%BA%BA%E6%A3%80%E6%B5%8B"><span class="nav-number">7.1.</span> <span class="nav-text">行人检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B"><span class="nav-number">7.2.</span> <span class="nav-text">人脸检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB"><span class="nav-number">7.3.</span> <span class="nav-text">文字识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E6%A3%80%E6%B5%8B"><span class="nav-number">7.4.</span> <span class="nav-text">交通信号检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%A5%E6%84%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">7.5.</span> <span class="nav-text">遥感目标检测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">1.</span> <span class="nav-text">什么是目标检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E5%8E%86%E5%8F%B2"><span class="nav-number">2.</span> <span class="nav-text">目标检测历史</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">2.1.</span> <span class="nav-text">传统目标检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5CNN"><span class="nav-number">2.2.</span> <span class="nav-text">两阶段CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E9%98%B6%E6%AE%B5CNN"><span class="nav-number">2.3.</span> <span class="nav-text">单阶段CNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Anchor-Based-x2F-Free"><span class="nav-number">2.4.</span> <span class="nav-text">Anchor Based&#x2F;Free</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">目标检测数据集和评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">3.2.</span> <span class="nav-text">评价指标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E7%9A%84%E5%8F%91%E5%B1%95"><span class="nav-number">4.</span> <span class="nav-text">目标检测的发展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%A8%E5%B9%B2%E7%BD%91%E7%BB%9C"><span class="nav-number">4.1.</span> <span class="nav-text">骨干网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E6%BB%91%E7%AA%97"><span class="nav-number">4.2.</span> <span class="nav-text">无滑窗</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">算法总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E8%B6%B3%E5%8F%8A%E5%8F%91%E5%B1%95%E6%96%B9%E5%90%91"><span class="nav-number">6.</span> <span class="nav-text">不足及发展方向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%EF%BC%8C%E7%AE%97%E5%8A%9B%E8%A6%81%E6%B1%82%E9%AB%98"><span class="nav-number">6.1.</span> <span class="nav-text">模型复杂，算力要求高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B%E6%80%A7%E8%83%BD%E5%B7%AE"><span class="nav-number">6.2.</span> <span class="nav-text">小目标检测性能差</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">6.3.</span> <span class="nav-text">依赖数据集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E4%BA%BA%E6%A3%80%E6%B5%8B"><span class="nav-number">7.1.</span> <span class="nav-text">行人检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%BA%E8%84%B8%E6%A3%80%E6%B5%8B"><span class="nav-number">7.2.</span> <span class="nav-text">人脸检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB"><span class="nav-number">7.3.</span> <span class="nav-text">文字识别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E6%A3%80%E6%B5%8B"><span class="nav-number">7.4.</span> <span class="nav-text">交通信号检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%A5%E6%84%9F%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B"><span class="nav-number">7.5.</span> <span class="nav-text">遥感目标检测</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">8.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -597,20 +586,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -642,7 +631,7 @@
 <div class="copyright">
   
   &copy; 2021 – 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
