@@ -281,89 +281,88 @@
       
         <p>深度之眼个性化推荐系统论文小班笔记。</p>
 <span id="more"></span>
-
-<h1 id="Lesson1"><a href="#Lesson1" class="headerlink" title="Lesson1"></a>Lesson1</h1><h2 id="推荐系统学习路径"><a href="#推荐系统学习路径" class="headerlink" title="推荐系统学习路径"></a>推荐系统学习路径</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624211711.png"></p>
-<h2 id="工业界推荐系统"><a href="#工业界推荐系统" class="headerlink" title="工业界推荐系统"></a>工业界推荐系统</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624212429.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624213911.png"></p>
+<h1 id="Lesson1"><a href="#Lesson1" class="headerlink" title="Lesson1"></a>Lesson1</h1><h2 id="推荐系统学习路径"><a href="#推荐系统学习路径" class="headerlink" title="推荐系统学习路径"></a>推荐系统学习路径</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624211711.png" alt=""></p>
+<h2 id="工业界推荐系统"><a href="#工业界推荐系统" class="headerlink" title="工业界推荐系统"></a>工业界推荐系统</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624212429.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624213911.png" alt=""></p>
 <p>本质是使用户向量与正例向量更近，负例向量更远。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624214538.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624214538.png" alt=""></p>
 <p>将用户和物品耦合做分类，判断用户是否喜欢。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624215048.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624215048.png" alt=""></p>
 <p>物品不相关相当于向量夹角越大，排序分高相当于向量的模长长。</p>
-<h2 id="学术界推荐系统"><a href="#学术界推荐系统" class="headerlink" title="学术界推荐系统"></a>学术界推荐系统</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624220156.png"></p>
-<h2 id="论文推荐"><a href="#论文推荐" class="headerlink" title="论文推荐"></a>论文推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624220550.png"></p>
+<h2 id="学术界推荐系统"><a href="#学术界推荐系统" class="headerlink" title="学术界推荐系统"></a>学术界推荐系统</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624220156.png" alt=""></p>
+<h2 id="论文推荐"><a href="#论文推荐" class="headerlink" title="论文推荐"></a>论文推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624220550.png" alt=""></p>
 <p>复杂的模型不太work，attention还行</p>
-<h2 id="推荐系统与矩阵分解"><a href="#推荐系统与矩阵分解" class="headerlink" title="推荐系统与矩阵分解"></a>推荐系统与矩阵分解</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624220939.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624221150.png"></p>
+<h2 id="推荐系统与矩阵分解"><a href="#推荐系统与矩阵分解" class="headerlink" title="推荐系统与矩阵分解"></a>推荐系统与矩阵分解</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624220939.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624221150.png" alt=""></p>
 <p>很高效。计算相似度时可以考虑两个物品被点击的间隔时间。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624221730.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624221730.png" alt=""></p>
 <p>FunkSVD:随机初始化p和q，通过梯度下降使两者积（点击率）最大。</p>
 <p>SVD++:y表示用户的其他信息。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624222456.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220624222456.png" alt=""></p>
 <p>使用户对正样本的得分一直比负样本得分高。</p>
-<h1 id="Lesson2"><a href="#Lesson2" class="headerlink" title="Lesson2"></a>Lesson2</h1><h2 id="传统浅层模型"><a href="#传统浅层模型" class="headerlink" title="传统浅层模型"></a>传统浅层模型</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625213504.png"></p>
+<h1 id="Lesson2"><a href="#Lesson2" class="headerlink" title="Lesson2"></a>Lesson2</h1><h2 id="传统浅层模型"><a href="#传统浅层模型" class="headerlink" title="传统浅层模型"></a>传统浅层模型</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625213504.png" alt=""></p>
 <p>考虑2维特征的关系，但是复杂度比较高（n²个参数）。第二个式子中v是一个n维向量，参数就变成了kn个。通过第三个式子的推导可以把计算的复杂度从n²降到kn。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625220055.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625220430.png"></p>
-<h2 id="基于序列的推荐"><a href="#基于序列的推荐" class="headerlink" title="基于序列的推荐"></a>基于序列的推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625220850.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625220055.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625220430.png" alt=""></p>
+<h2 id="基于序列的推荐"><a href="#基于序列的推荐" class="headerlink" title="基于序列的推荐"></a>基于序列的推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625220850.png" alt=""></p>
 <p>只能建模一阶的关系。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625221445.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625221445.png" alt=""></p>
 <p>使用深度学习可以建模更高介的序列关系，但是可解释性比较差。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625224241.png"></p>
-<h2 id="基于图神经网络的推荐"><a href="#基于图神经网络的推荐" class="headerlink" title="基于图神经网络的推荐"></a>基于图神经网络的推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626094331.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626100631.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220625224241.png" alt=""></p>
+<h2 id="基于图神经网络的推荐"><a href="#基于图神经网络的推荐" class="headerlink" title="基于图神经网络的推荐"></a>基于图神经网络的推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626094331.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626100631.png" alt=""></p>
 <p>简单、高效、baseline。新手可以从这个模型开始。<a target="_blank" rel="noopener" href="https://github.com/gusye1234/LightGCN-PyTorch">https://github.com/gusye1234/LightGCN-PyTorch</a></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626101639474.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626101639474.png" alt=""></p>
 <p>表示各种实体和之间关系。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626102038.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626102814.png"></p>
-<h2 id="论文推荐-1"><a href="#论文推荐-1" class="headerlink" title="论文推荐"></a>论文推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626151727.png"></p>
-<h2 id="双曲图神经网络"><a href="#双曲图神经网络" class="headerlink" title="双曲图神经网络"></a>双曲图神经网络</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626152001.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626152603.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626102038.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626102814.png" alt=""></p>
+<h2 id="论文推荐-1"><a href="#论文推荐-1" class="headerlink" title="论文推荐"></a>论文推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626151727.png" alt=""></p>
+<h2 id="双曲图神经网络"><a href="#双曲图神经网络" class="headerlink" title="双曲图神经网络"></a>双曲图神经网络</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626152001.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626152603.png" alt=""></p>
 <p>庞加莱圆盘：不同位置的度量不同，越靠近边缘度量越大，适合建模树结构。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626153307259.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626153307259.png" alt=""></p>
 <p>通过截面将庞加莱空间映射到欧式空间，然后做embedding，之后再映射回去。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626153645.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626153719.png"></p>
-<h1 id="Lesson3"><a href="#Lesson3" class="headerlink" title="Lesson3"></a>Lesson3</h1><h2 id="多兴趣推荐"><a href="#多兴趣推荐" class="headerlink" title="多兴趣推荐"></a>多兴趣推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626160557.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626153645.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626153719.png" alt=""></p>
+<h1 id="Lesson3"><a href="#Lesson3" class="headerlink" title="Lesson3"></a>Lesson3</h1><h2 id="多兴趣推荐"><a href="#多兴趣推荐" class="headerlink" title="多兴趣推荐"></a>多兴趣推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626160557.png" alt=""></p>
 <p>淘宝主要召回算法，训练出多个用户兴趣，分别进行召回。缺点：Label-aware Attention的存在，当训练数据与测试数据不一样时会使性能损失。Capsules是固定的，不同的用户存在不同的兴趣个数。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626162748.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626162748.png" alt=""></p>
 <p>第1步通过item数取log作为capsules数；第2步随机初始化item和capsule权重b；第3步计算item和capsule权重w；第4步对item加权求和，计算interest embedding，S通过梯度下降优化。第5步进行非线性压缩；第6步更新权重b。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626165750.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626170340.png"></p>
-<h2 id="新闻推荐"><a href="#新闻推荐" class="headerlink" title="新闻推荐"></a>新闻推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626170842.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626165750.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626170340.png" alt=""></p>
+<h2 id="新闻推荐"><a href="#新闻推荐" class="headerlink" title="新闻推荐"></a>新闻推荐</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626170842.png" alt=""></p>
 <p>比较耗费资源，噪音比较多。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626171505380.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626171505380.png" alt=""></p>
 <p>根据新闻的topic进行聚合，从小topic到大topic</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626171909345.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626171909345.png" alt=""></p>
 <p>缺点：需要提前打好标签，标签也可能不准。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626172316.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626173251.png"></p>
-<h2 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626174533.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626172316.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626173251.png" alt=""></p>
+<h2 id="对比学习"><a href="#对比学习" class="headerlink" title="对比学习"></a>对比学习</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626174533.png" alt=""></p>
 <p>使不同正样本的表示尽量相似，使正样本和负样本的表示尽量不同。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626175341.png"></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/wujcan/SGL">Https://github.com/wujcan/SGL</a></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626175536.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626175341.png" alt=""></p>
+<p>Https://github.com/wujcan/SGL</p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626175536.png" alt=""></p>
 <p>通过对比学习（数据增强）可以解决长尾问题。</p>
-<h2 id="论文阅读"><a href="#论文阅读" class="headerlink" title="论文阅读"></a>论文阅读</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626175800465.png"></p>
-<h2 id="广告算法"><a href="#广告算法" class="headerlink" title="广告算法"></a>广告算法</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626181221.png"></p>
-<h1 id="Lesson4"><a href="#Lesson4" class="headerlink" title="Lesson4"></a>Lesson4</h1><h2 id="推荐任务总结"><a href="#推荐任务总结" class="headerlink" title="推荐任务总结"></a>推荐任务总结</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626215029.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626215240.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626220230.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626221423.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626221623.png"></p>
+<h2 id="论文阅读"><a href="#论文阅读" class="headerlink" title="论文阅读"></a>论文阅读</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/image-20220626175800465.png" alt=""></p>
+<h2 id="广告算法"><a href="#广告算法" class="headerlink" title="广告算法"></a>广告算法</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626181221.png" alt=""></p>
+<h1 id="Lesson4"><a href="#Lesson4" class="headerlink" title="Lesson4"></a>Lesson4</h1><h2 id="推荐任务总结"><a href="#推荐任务总结" class="headerlink" title="推荐任务总结"></a>推荐任务总结</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626215029.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626215240.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626220230.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626221423.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626221623.png" alt=""></p>
 <p>KuaiRec中用户和物品的交互很多，不存在长尾分布。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626221909.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626222254.png"></p>
-<h2 id="推荐系统公平性"><a href="#推荐系统公平性" class="headerlink" title="推荐系统公平性"></a>推荐系统公平性</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626223554.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626224511.png"></p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627194736.png"></p>
-<h2 id="推荐系统的冷启动"><a href="#推荐系统的冷启动" class="headerlink" title="推荐系统的冷启动"></a>推荐系统的冷启动</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627195723.png"></p>
-<h2 id="论文阅读-1"><a href="#论文阅读-1" class="headerlink" title="论文阅读"></a>论文阅读</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627200510.png"></p>
-<h2 id="推荐系统的可解释性"><a href="#推荐系统的可解释性" class="headerlink" title="推荐系统的可解释性"></a>推荐系统的可解释性</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627200732.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626221909.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626222254.png" alt=""></p>
+<h2 id="推荐系统公平性"><a href="#推荐系统公平性" class="headerlink" title="推荐系统公平性"></a>推荐系统公平性</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626223554.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220626224511.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627194736.png" alt=""></p>
+<h2 id="推荐系统的冷启动"><a href="#推荐系统的冷启动" class="headerlink" title="推荐系统的冷启动"></a>推荐系统的冷启动</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627195723.png" alt=""></p>
+<h2 id="论文阅读-1"><a href="#论文阅读-1" class="headerlink" title="论文阅读"></a>论文阅读</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627200510.png" alt=""></p>
+<h2 id="推荐系统的可解释性"><a href="#推荐系统的可解释性" class="headerlink" title="推荐系统的可解释性"></a>推荐系统的可解释性</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627200732.png" alt=""></p>
 <p>生成推荐的同时生成一些其他有趣的东西？</p>
-<h1 id="Lesson5"><a href="#Lesson5" class="headerlink" title="Lesson5"></a>Lesson5</h1><h2 id="RecBole"><a href="#RecBole" class="headerlink" title="RecBole"></a>RecBole</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627203438.png"></p>
-<h2 id="代码演示-x2F-讲解"><a href="#代码演示-x2F-讲解" class="headerlink" title="代码演示&#x2F;讲解"></a>代码演示&#x2F;讲解</h2><h2 id="对比学习的改进思路"><a href="#对比学习的改进思路" class="headerlink" title="对比学习的改进思路"></a>对比学习的改进思路</h2>
+<h1 id="Lesson5"><a href="#Lesson5" class="headerlink" title="Lesson5"></a>Lesson5</h1><h2 id="RecBole"><a href="#RecBole" class="headerlink" title="RecBole"></a>RecBole</h2><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/20220627203438.png" alt=""></p>
+<h2 id="代码演示-讲解"><a href="#代码演示-讲解" class="headerlink" title="代码演示/讲解"></a>代码演示/讲解</h2><h2 id="对比学习的改进思路"><a href="#对比学习的改进思路" class="headerlink" title="对比学习的改进思路"></a>对比学习的改进思路</h2>
     </div>
 
     
@@ -446,7 +445,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson1"><span class="nav-number">1.</span> <span class="nav-text">Lesson1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84"><span class="nav-number">1.1.</span> <span class="nav-text">推荐系统学习路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%B8%9A%E7%95%8C%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.</span> <span class="nav-text">工业界推荐系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E6%9C%AF%E7%95%8C%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.</span> <span class="nav-text">学术界推荐系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%8E%A8%E8%8D%90"><span class="nav-number">1.4.</span> <span class="nav-text">论文推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="nav-number">1.5.</span> <span class="nav-text">推荐系统与矩阵分解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson2"><span class="nav-number">2.</span> <span class="nav-text">Lesson2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E6%B5%85%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">传统浅层模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%BA%8F%E5%88%97%E7%9A%84%E6%8E%A8%E8%8D%90"><span class="nav-number">2.2.</span> <span class="nav-text">基于序列的推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%8E%A8%E8%8D%90"><span class="nav-number">2.3.</span> <span class="nav-text">基于图神经网络的推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%8E%A8%E8%8D%90-1"><span class="nav-number">2.4.</span> <span class="nav-text">论文推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E6%9B%B2%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.5.</span> <span class="nav-text">双曲图神经网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson3"><span class="nav-number">3.</span> <span class="nav-text">Lesson3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%85%B4%E8%B6%A3%E6%8E%A8%E8%8D%90"><span class="nav-number">3.1.</span> <span class="nav-text">多兴趣推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90"><span class="nav-number">3.2.</span> <span class="nav-text">新闻推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.3.</span> <span class="nav-text">对比学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB"><span class="nav-number">3.4.</span> <span class="nav-text">论文阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95"><span class="nav-number">3.5.</span> <span class="nav-text">广告算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson4"><span class="nav-number">4.</span> <span class="nav-text">Lesson4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E4%BB%BB%E5%8A%A1%E6%80%BB%E7%BB%93"><span class="nav-number">4.1.</span> <span class="nav-text">推荐任务总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%85%AC%E5%B9%B3%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">推荐系统公平性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%B7%E5%90%AF%E5%8A%A8"><span class="nav-number">4.3.</span> <span class="nav-text">推荐系统的冷启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-1"><span class="nav-number">4.4.</span> <span class="nav-text">论文阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7"><span class="nav-number">4.5.</span> <span class="nav-text">推荐系统的可解释性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson5"><span class="nav-number">5.</span> <span class="nav-text">Lesson5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RecBole"><span class="nav-number">5.1.</span> <span class="nav-text">RecBole</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-x2F-%E8%AE%B2%E8%A7%A3"><span class="nav-number">5.2.</span> <span class="nav-text">代码演示&#x2F;讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%94%B9%E8%BF%9B%E6%80%9D%E8%B7%AF"><span class="nav-number">5.3.</span> <span class="nav-text">对比学习的改进思路</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson1"><span class="nav-number">1.</span> <span class="nav-text">Lesson1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84"><span class="nav-number">1.1.</span> <span class="nav-text">推荐系统学习路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%B8%9A%E7%95%8C%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.</span> <span class="nav-text">工业界推荐系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E6%9C%AF%E7%95%8C%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.3.</span> <span class="nav-text">学术界推荐系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%8E%A8%E8%8D%90"><span class="nav-number">1.4.</span> <span class="nav-text">论文推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E4%B8%8E%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3"><span class="nav-number">1.5.</span> <span class="nav-text">推荐系统与矩阵分解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson2"><span class="nav-number">2.</span> <span class="nav-text">Lesson2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E7%BB%9F%E6%B5%85%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">传统浅层模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%BA%8F%E5%88%97%E7%9A%84%E6%8E%A8%E8%8D%90"><span class="nav-number">2.2.</span> <span class="nav-text">基于序列的推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%8E%A8%E8%8D%90"><span class="nav-number">2.3.</span> <span class="nav-text">基于图神经网络的推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E6%8E%A8%E8%8D%90-1"><span class="nav-number">2.4.</span> <span class="nav-text">论文推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E6%9B%B2%E5%9B%BE%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C"><span class="nav-number">2.5.</span> <span class="nav-text">双曲图神经网络</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson3"><span class="nav-number">3.</span> <span class="nav-text">Lesson3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%85%B4%E8%B6%A3%E6%8E%A8%E8%8D%90"><span class="nav-number">3.1.</span> <span class="nav-text">多兴趣推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90"><span class="nav-number">3.2.</span> <span class="nav-text">新闻推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.3.</span> <span class="nav-text">对比学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB"><span class="nav-number">3.4.</span> <span class="nav-text">论文阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%BF%E5%91%8A%E7%AE%97%E6%B3%95"><span class="nav-number">3.5.</span> <span class="nav-text">广告算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson4"><span class="nav-number">4.</span> <span class="nav-text">Lesson4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E4%BB%BB%E5%8A%A1%E6%80%BB%E7%BB%93"><span class="nav-number">4.1.</span> <span class="nav-text">推荐任务总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E5%85%AC%E5%B9%B3%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">推荐系统公平性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%B7%E5%90%AF%E5%8A%A8"><span class="nav-number">4.3.</span> <span class="nav-text">推荐系统的冷启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB-1"><span class="nav-number">4.4.</span> <span class="nav-text">论文阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7"><span class="nav-number">4.5.</span> <span class="nav-text">推荐系统的可解释性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lesson5"><span class="nav-number">5.</span> <span class="nav-text">Lesson5</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RecBole"><span class="nav-number">5.1.</span> <span class="nav-text">RecBole</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%BC%94%E7%A4%BA-%E8%AE%B2%E8%A7%A3"><span class="nav-number">5.2.</span> <span class="nav-text">代码演示&#x2F;讲解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%94%B9%E8%BF%9B%E6%80%9D%E8%B7%AF"><span class="nav-number">5.3.</span> <span class="nav-text">对比学习的改进思路</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

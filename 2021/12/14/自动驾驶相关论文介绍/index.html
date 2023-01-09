@@ -236,28 +236,27 @@
       
         <p>高级计算机视觉课程作业，选了CVPR2021的三篇文章做介绍，分别属于自动驾驶中的感知、预测和仿真方向。</p>
 <span id="more"></span>
-
-<h1 id="Projecting-Your-View-Attentively-Monocular-Road-Scene-Layout-Estimation-via-Cross-view-Transformation"><a href="#Projecting-Your-View-Attentively-Monocular-Road-Scene-Layout-Estimation-via-Cross-view-Transformation" class="headerlink" title="Projecting Your View Attentively: Monocular Road Scene Layout Estimation via Cross-view Transformation"></a>Projecting Your View Attentively: Monocular Road Scene Layout Estimation via Cross-view Transformation</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%871.png"></p>
+<h1 id="Projecting-Your-View-Attentively-Monocular-Road-Scene-Layout-Estimation-via-Cross-view-Transformation"><a href="#Projecting-Your-View-Attentively-Monocular-Road-Scene-Layout-Estimation-via-Cross-view-Transformation" class="headerlink" title="Projecting Your View Attentively: Monocular Road Scene Layout Estimation via Cross-view Transformation"></a>Projecting Your View Attentively: Monocular Road Scene Layout Estimation via Cross-view Transformation</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%871.png" alt=""></p>
 <p>主要的工作是将摄像头捕捉的前视图转换成俯视图。之前的做法是进行图像分割，然后建立前视图和俯视图的转换模型进行转换，但是这种方法对遮挡的位置处理不好，容易造成失真和内容缺失。后来通过神经网络可以解决遮挡问题，但是由于感知区域有限可能会忽略一些小的物体。这篇文章的贡献就是通过循环投影和跨视图转换模块对网络进行加强，使转换结果更加的准确。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%872.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%872.png" alt=""></p>
 <p>模型的输入是前视图，通过ResNet网络提取出前视图特征X，然后通过多层网络将X转换成俯视图特征X’，接下来就是这个网络的核心，将X’通过同样的多层网络投影到前视图特征X‘’，理论上X和X‘’应该是一样的，但是转换过程会产生损耗，这样就使X‘’更加突出特征信息。最后将X和X’’作为附加信息对X’进行增强，输出俯视图。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%873.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%873.png" alt=""></p>
 <p>这个图是对特征的可视化表达，可以看出X和X‘’是相似的，但是X‘’更加关注车辆和道路信息 </p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%874.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%874.png" alt=""></p>
 <p>跨视图转换器分为三个部分，先生成一个X和X’的关系矩阵R，R表示X和X’每个部分的相关程度，然后根据R推出W和H， W表示X’的每一部分与X所有部分的相关程度，就是一个注意力图。H表示X中和X’最相关的部分，用于从X‘’中提取最关键特征生成新的特征图T，最后将T和W用于对X’进行增强。</p>
-<h1 id="Pedestrian-and-Ego-vehicle-Trajectory-Prediction-from-Monocular-Camera"><a href="#Pedestrian-and-Ego-vehicle-Trajectory-Prediction-from-Monocular-Camera" class="headerlink" title="Pedestrian and Ego-vehicle Trajectory Prediction from Monocular Camera"></a>Pedestrian and Ego-vehicle Trajectory Prediction from Monocular Camera</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%875.png"></p>
+<h1 id="Pedestrian-and-Ego-vehicle-Trajectory-Prediction-from-Monocular-Camera"><a href="#Pedestrian-and-Ego-vehicle-Trajectory-Prediction-from-Monocular-Camera" class="headerlink" title="Pedestrian and Ego-vehicle Trajectory Prediction from Monocular Camera"></a>Pedestrian and Ego-vehicle Trajectory Prediction from Monocular Camera</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%875.png" alt=""></p>
 <p>预测的目的是帮助自动驾驶系统提前作出决策，避免发生危险。预测的难点在于车辆和行人都是变化的，而且考虑到应用，对硬件的要求尽可能低。这篇文章实现了基于单目相机的轨迹预测，核心思想就是控制变量，先预测车辆移动后的图像，然后根据车辆运动截取图像中的部分区域对行人做预测。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%876.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%876.png" alt=""></p>
 <p>先说车辆运动预测，首先根据当前帧生成一个深度图，然后根据当前帧和前三帧图像生成三个姿态变化估计，深度图结合变化估计对当前帧的图像进行扭曲操作，作为未来三帧图像。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%877.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%877.png" alt=""></p>
 <p>然后是行人运动预测。在车辆的移动过程中，行人也会随着移动或放大，所以要预测行人的运动要先消除车辆移动的影响，文章的做法是用边界框将不同帧中的同一个行人框起来，然后将前两帧的框做姿态变化投影到当前帧中，并提取出三个框的坐标位置，同时当前帧的框分别做姿态变化，投影到前两帧中，以当前帧的框为参考截取每一帧中相同的真实区域，这样就相当于是用固定相机拍摄的三张图片，然后将三个图片和三个框的坐标位置一起展开，确定预测模型的参数V和A，之后就可以对未来行人的位置进行预测了。</p>
-<h1 id="GeoSim-Realistic-Video-Simulation-via-Geometry-Aware-Composition-for-Self-Driving"><a href="#GeoSim-Realistic-Video-Simulation-via-Geometry-Aware-Composition-for-Self-Driving" class="headerlink" title="GeoSim: Realistic Video Simulation via Geometry-Aware Composition for Self-Driving"></a>GeoSim: Realistic Video Simulation via Geometry-Aware Composition for Self-Driving</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%878.png"></p>
+<h1 id="GeoSim-Realistic-Video-Simulation-via-Geometry-Aware-Composition-for-Self-Driving"><a href="#GeoSim-Realistic-Video-Simulation-via-Geometry-Aware-Composition-for-Self-Driving" class="headerlink" title="GeoSim: Realistic Video Simulation via Geometry-Aware Composition for Self-Driving"></a>GeoSim: Realistic Video Simulation via Geometry-Aware Composition for Self-Driving</h1><p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%878.png" alt=""></p>
 <p>仿真的目的是降低自动驾驶系统训练和测试的成本，仿真的要求是真实和可扩展。仿真的方法大概分为两种，一种是计算机图形学的方法，建立虚拟3D场景，优点是真实、灵活性高，但是可扩展性差，成本高。另一种是使用神经网络，将语义图片转换成真实图片，优点是可扩展行高，成本低，但是不能进行3D控制，无法直接用于仿真系统。这篇文章的核心思想是在视频中插入3D资产，并实现合理的移动，工作分为两部分，物体重建和仿真。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%879.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%879.png" alt=""></p>
 <p>物体重建首先用CNN和点云提取多目相机图片和雷达的特征，然后通过多层网络输出一个变形量作用到平均形状上，产生预测的形状，在训练的过程中平均形状也在不断变化。之后根据预测的形状生成轮廓图（使用DIB-R），与MaskRCNN生成的轮廓图进行比较计算误差，同时生成一些点与雷达信息进行比较计算误差。通过这个网络就可以产生3D资产</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%8710.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%8710.png" alt=""></p>
 <p>仿真分为三步，第一步是通过高清地图生成一个新的场景，然后找到放置车辆的位置，并且预测它的运动轨迹，同时要避免与其他车辆发生碰撞，最后在资产库中选择一个合适视角车辆。</p>
-<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%8711.png"></p>
+<p><img src="https://raw.githubusercontent.com/EverestLi/images/main/%E5%9B%BE%E7%89%8711.png" alt=""></p>
 <p>第二步将车辆渲染到目标位置，使用深度补全网络获取车辆和背景的深度信息，通过比较深度信息来判断遮挡关系。同时可以使用3D引擎（Blender）渲染出阴影，同样阴影也要判断遮挡关系。</p>
 <p>第三步是合成，利用deepfill图像修复网络，使插入的图像和背景的边缘过度更加自然，同时使车辆和背景的光照条件更加统一。</p>
 <h1 id="参考视频"><a href="#参考视频" class="headerlink" title="参考视频"></a>参考视频</h1><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV14R4y1x7Gv">https://www.bilibili.com/video/BV14R4y1x7Gv</a></p>
